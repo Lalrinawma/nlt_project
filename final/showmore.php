@@ -1,6 +1,6 @@
 <?php
 session_start();
-	$_SESSION['pageid']++;
+	$_SESSION['pcid']++;
 	if ($_POST['action']== 'true') {
 	 $conn = new mysqli("localhost","root","","project_nlt");
          $username=$_SESSION["username"];

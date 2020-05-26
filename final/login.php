@@ -51,10 +51,10 @@ mysqli_close($conn);
 <html>
 <head>
   <title>login</title>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="home2.css"/>
 </head>
 <body>
@@ -109,7 +109,7 @@ mysqli_close($conn);
 
               <!-- Register -->
               <p>Not a member?
-                <a href="">Register</a>
+                <a href="register.php">Register</a>
               </p>
             </form>
             <!-- Form -->

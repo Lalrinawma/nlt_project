@@ -17,8 +17,7 @@ $conn = new mysqli("localhost","root","","project_nlt");
             if($result = $query->get_result()) 
             {
             $r = $result->fetch_array(MYSQLI_ASSOC); // bind the data from the first result row to $r
-                $pre_phone=$r['phone_pre'];
-                $post_phone=$r['phone_post'];
+                $phone_no = $r['phone_no'];
                 $address=$r['address'];
                 $email=$r['email'];
                 $dpsrc=$r['dp'];
@@ -235,7 +234,7 @@ $conn = new mysqli("localhost","root","","project_nlt");
                                                 <label>Phone_no</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo $pre_phone.$post_phone;?></p>
+                                                <p><?php echo $phone_no;?></p>
                                             </div>
                                         </div>
                                         <div class="row">
