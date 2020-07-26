@@ -1,0 +1,24 @@
+.li
+{
+	color: #4893E9;
+}
+.li input
+{
+ 	margin: 10px;
+ 	width: 240px;
+ 	border-radius: 5px;
+ 	border: 1px solid #4893E9;
+ 	padding: 5px;
+}
+.li input:hover
+{
+ 	border-color: green;
+
+}
+#spin{
+    visibility: hidden;
+}
+.li label
+{
+	color: red;
+}

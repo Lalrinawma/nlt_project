@@ -5,6 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>home</title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="home.css"/>
 </head>
 <body>
@@ -13,9 +17,6 @@
 		<p>specially for hand worker</p>
 	</div>
 	<div class="column">
-	<div class="header">
-		<img src="storage/logo.jpg">
-	</div>
 	<div class="topnav">
 		<div>
 			<a href="home.html">
@@ -27,7 +28,7 @@
 				</i>
 		Home</a>
 		</div>
-		<a href="#">
+		<a href="notification.html">
 			<i>
 			<svg class="Icon_material_notifications" viewBox="6 3.75 11.241 14.771">
 			<path fill="rgba(211,217,240,1)" class="Icon_material_notifications_Class" d="M 11.6207275390625 18.52064323425293 C 12.39357757568359 18.52064323425293 13.02590942382813 17.83891868591309 13.02590942382813 17.00570678710938 L 10.21554565429688 17.00570678710938 C 10.21554565429688 17.83891868591309 10.84085083007813 18.52064323425293 11.6207275390625 18.52064323425293 Z M 15.83627128601074 13.97582817077637 L 15.83627128601074 10.18848514556885 C 15.83627128601074 7.86305570602417 14.68402481079102 5.916361331939697 12.67461204528809 5.401283264160156 L 12.67461204528809 4.886204719543457 C 12.67461204528809 4.257505416870117 12.20387840270996 3.750000953674316 11.6207275390625 3.750000953674316 C 11.03757476806641 3.750000953674316 10.56683921813965 4.257505416870117 10.56683921813965 4.886204719543457 L 10.56683921813965 5.401282787322998 C 8.550405502319336 5.916361331939697 7.405182361602783 7.855481624603271 7.405182361602783 10.18848514556885 L 7.405182361602783 13.97582817077637 L 6 15.49076747894287 L 6 16.24823760986328 L 17.241455078125 16.24823760986328 L 17.241455078125 15.49076747894287 L 15.83627128601074 13.97582817077637 Z">
@@ -59,108 +60,21 @@
 			Contact-Us</a>
 		</div>
 	</div>
-	<div class="column search_class">
-		<p>What are you looking for?</p>
-		<hr class="side">
-		
-		<div>
-			<label for="type">Type:</label>
-			<div class="side_drop">
-			<select id="type">
-			<option>Work</option>
-			<option>Worker</option>
-			</select>
+	<div class="row">
+		<div class="col-sm-8">
+			<h5>Notifications</h5>
+			<div class="card">
+				<div class="card-body">
+					<p>Bootstrap's grid system is built with flexbox and allows up to 12 columns across the page.
+					If you do not want to use all 12 columns individually, you can group the columns together to create wider columns:
+					span 1	span 1	span 1	span 1	span 1	span 1	span 1	span 1	span 1	span 1	span 1	
+					</p>
+				</div>
+				<div class="card-footer">
+					<button type="submit">Hire</button>
+				</div>
 			</div>
-		</div>
-		<div>
-			<label for="skills">Skills:</label>
-			<div class="side_drop">
-				<select id="skills">
-				<option>Electrician</option>
-				<option>Plumber</option>
-				</select>
-			</div>
-		</div>
-		
-		<button class="search_button">Search</button>
-	</div>
-	<div class="column create_post">
-		<h2>
-			<p1>Create post</p1>
-			<hr>
-		</h2>
-		
-		<div>
-		<label>i'm looking for:</label>
-			<select>
-			<option>work</option>
-			<option>worker</option>
-			</div>	
-			</select>
-		</div>
-		<div>
-		<label>Skill:</label>
-		
-				<select>
-					<option>1</option>
-					<option>2</option>	
-				</select>
-			
-		</div>
-		<div>
-			<label>Location:</label>
-			
-				<input type="text" name="Location">
-			
-		</div>
-		<div>
-		<label>Rate:</label>
-		
-			<input type="text" name="Rate">
-			
-		</div>
-		<div>
-		<label for="Description">Description:</label>
-			<div>
-			<textarea name="decription" id="Description"cols="50" rows="4"></textarea>
-			</div>
-		</div>
-		</div>
-
-	</div>
-		<div class="column newsfeed">
-			<p2>News Feed</p2>
-			<hr>	
-			<div>
-				<img id="myImg" src="IMG_4534.jpg" alt="avatar">
-				<p name="type" id="type">i'm looking for <label for="type">work<?php echo "$type" ?></label></p>
-				
-			</div>
-			<p>Skill:<label>Electrician</label></p>
-			<p>Rate:<label>Rate</label></p>
-			<p>Location:<label>Street</label></p>
-			<p>Description:<label>description about your post</label></p>
-			<h1>adFSsarsdfsd
-			sdagasdgas
-		asgds
-	gsdaf
-sda
-f
-sadaf
-sd
-f
-sd
-f
-asd
-f
-sda
-f
-sda
-f
-asd<br>
-</h1>
 		</div>
 	</div>
-	
 </body>
 </html>
