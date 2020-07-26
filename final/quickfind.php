@@ -41,21 +41,7 @@
                   
                 </div>
                        
-                      <form class="form-inline ml-auto mr-5 ">
-                      <div class="src">
-                          <input class="form-control form-control-sm ml-3 w-93" type="text" placeholder="text here"
-                            aria-label="Search">
-                      </div>
-                      <div class="src">
-                          <button class="btn btn-rounded btn-sm my-0 ml-sm-2 mr-auto" type="submit"><i class="fa fa-search"></i> Search</button>
-                      </div>
-                      </form>
-                      <div class="dropdown">
-                        <img class='rounded-circle' width="50px" src='uploads/gallery/<?php echo $psrc; ?>' alt=''>
-                          <div class="dropdown-content">
-                            <a href="logout.php">Log out</a>
-                          </div>
-                      </div>
+                      
                      
               </div>
               
@@ -73,11 +59,11 @@
             </header>
         <br>
 </div>
-<div class="row">
+<div class="row" style="margin: 20px;">
 <?php
    
    $skill = $_POST['name'];
-   $conn = new mysqli('localhost','root','','project_nlt');
+   $conn = new mysqli('localhost','terinao','Bingo-@06','project_nlt');
    $qry = "select * from useri_nfo where skills='$skill' order by u_id ASC";
    if ($row = $conn->query($qry))
    {

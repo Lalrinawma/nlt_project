@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli('localhost','root','','project_nlt');
+$conn = new mysqli('localhost','terinao','Bingo-@06','project_nlt');
 $username=$_SESSION['username'];
 if (!$conn) {
 	echo "error";
@@ -18,6 +18,7 @@ if (!$conn) {
                 if ($r=$conn->query($slike_qry)) {
                 	$row=mysqli_fetch_array($r);
                 	echo $row['likes'];
+                    echo "likes";
                 }
                 else
                 {

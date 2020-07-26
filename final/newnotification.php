@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost","root","","project_nlt");
+$conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
     if (is_null($_SESSION["username"])) {
           echo "please login or register";
         header("location:login.php");
@@ -55,21 +55,10 @@ $conn = new mysqli("localhost","root","","project_nlt");
     <div class="navb d-flex align-items-center">
 
       <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-      <h4>E-Tlangau</h4>
+      <h4>E-Desk</h4>
       
     </div>
-           <div>
-            <i class="fa fa-user-circle-o"></i>
-          </div>
-          <form class="form-inline ml-auto mr-5 ">
-          <div class="src">
-              <input class="form-control form-control-sm ml-3 w-93" type="text" placeholder="text here"
-                aria-label="Search">
-          </div>
-          <div class="src">
-              <button class="btn btn-rounded btn-sm my-0 ml-sm-2 mr-auto" type="submit"><i class="fa fa-search"></i> Search</button>
-          </div>
-          </form>
+         
          
   </div>
   
@@ -85,18 +74,58 @@ $conn = new mysqli("localhost","root","","project_nlt");
 
   </div>
 </header>
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-sm-8">
       <h5>Notifications</h5>
-      <div class="card">
+      <div class="card" style="padding-top: 10px;">
         <div class="card-body">
-          <p>Bootstrap's grid system is built with flexbox and allows up to 12 columns across the page.
-          If you do not want to use all 12 columns individually, you can group the columns together to create wider columns:
-          span 1  span 1  span 1  span 1  span 1  span 1  span 1  span 1  span 1  span 1  span 1  
+          <p>
+            Lalrinawma bid on your post
+          </p>
+          <p>
+            Rate:$15 per/hour
+          </p>
+          <p>
+            i would like to work for you. 
           </p>
         </div>
         <div class="card-footer">
-          <button type="submit">Hire</button>
+          <button class="btn btn-primary" type="submit">Hire</button>
+          <button class="btn btn-primary"> see profile</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 10px;">
+        <div class="card-body">
+          <p>
+            Lalngaihawma bid on your post
+          </p>
+          <p>
+            Rate:$12 per/hour
+          </p>
+          <p>
+            i would like to work for you. 
+          </p>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" type="submit">Hire</button>
+          <button class="btn btn-primary"> see profile</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 10px;">
+        <div class="card-body">
+          <p>
+            Jerome bid on your post
+          </p>
+          <p>
+            Rate:$1 per/hour
+          </p>
+          <p>
+            i would like to work for you. 
+          </p>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary" type="submit">Hire</button>
+          <button class="btn btn-primary"> see profile</button>
         </div>
       </div>
     </div>

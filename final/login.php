@@ -2,7 +2,7 @@
 session_start(); 
 $username="";
 $password="";
-$conn = new mysqli("127.0.0.1","root","","project_nlt");
+$conn = new mysqli("127.0.0.1","terinao","Bingo-@06","project_nlt");
 
 if (!$conn) {
 	echo "database error";
@@ -58,13 +58,17 @@ mysqli_close($conn);
 <link rel="stylesheet" type="text/css" id="applicationStylesheet" href="home2.css"/>
 </head>
 <body>
-  <div class="header">
-    <h1>Get worker and Work</h1>
-    <p>specially for hand worker</p>
+<div>
+  <div class="col-sm-12">
+      <div class="header">
+        <h1>Welcome To  Edesk</h1>
+        <p>Get worker or find here</p>
+      </div>
   </div>
-  <div class="row">
+</div>
+<div class="row" style="margin: 5px;">
  <div class="col-sm-3">
-        <div class="card">
+        <div class="card" style="margin-top: 20px;">
 
           <h5 class="card-header info-color white-text text-center py-4">
             <strong>Sign in</strong>
@@ -117,42 +121,24 @@ mysqli_close($conn);
           </div>
 
         </div>
-      </div>
-      <div class="col-sm-9">
-          <div class="card">
-              <div class="card-header">
-                <h1>About this page</h1>
-              </div>
-              <div class="card-body">
-                <p>
-                  View 3+ more
-                  Cambridge Advanced Learner's Dictionary
-                  Cambridge Advanced Learner...
-                  Webster's Dictionary for Students
-                  Webster's Dictionary for Stude...
-                  Co
-                  Next
-                  Complementary results
-                  Knowledge result
-                  Text
-                  Literary theory
-                  Image result for text
-                  DescriptionIn literary theory, a text is any object that can be "read", whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits some kind of informative message. Wikipedia
-                  Feedback
-                  See results about
-
-                  Text messaging
-                  Text messaging, or texting, is the act of composing and sending electronic ...
-                  Footer links
-                  IndiaAizawl, Mizoram - Based on your Location History - Use precise location - Learn more
-                  HelpSend feedbackPrivacyTerms
-                </p>
-              </div>
-            
-          </div>
-        
-      </div>
   </div>
+  
+
+  <div class="col-sm-8">
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-header">
+        <h5>About This Page</h5>
+      </div>
+      <div class="card-body">
+        <p>
+          Edesk is developed to minimize the gap between worker and employer who deos not know each other, we hope to bring together the worker who wants works and employer who needs workers. 
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 </body>
 </html>
 

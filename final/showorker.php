@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost","root","","project_nlt");
+$conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
     if (isset($_SESSION["username"]))
     {
          

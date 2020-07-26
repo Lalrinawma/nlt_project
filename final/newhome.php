@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn = new mysqli("localhost","root","","project_nlt");
+$conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
     if (isset($_SESSION["username"]))
     {
          
@@ -39,31 +39,32 @@ $conn = new mysqli("localhost","root","","project_nlt");
         echo "please login or register";
         header("location:login.php");
     }
-    if (isset($_POST['post'])) {
-        $type=$_POST['type'];
+    if (isset($_POST['post'])) 
+    {
+      
         $rskill=$_POST['rskill'];
         $description=$_POST['description'];
-        $iqry= "insert into postdb (type,publisher,rskills,description) values ('$type','$username','$rskill','$description')";
+        $iqry= "insert into postdb(publisher,rskills,description,likes,bid,Time) values('$username','$rskill','$description','0','0',now())";
         $sqry= "select id from postdb where description='$description' && publisher='$username'";
+      
 
-
-        if ($conn->query($iqry)) {
+        if($conn->query($iqry)) {
             if($ff=$conn->query($sqry))
             {
                 $f=mysqli_fetch_array($ff);;
                 $idl=$f['0']."like";
                 $idb=$f['0']."bid";
-                $cqry = "create table `".$idl."`(id INT(10) not null auto_increment primary key, likers int(15) not null default '0')";
+                $cqry = "create table `".$idl."`(id INT(10) not null auto_increment primary key, likers varchar(15) not null default '0')";
                 if($conn->query($cqry))
                 {
                       echo "posted";
                 }
                 else
                 {
-                    echo "ER";
+                    echo "ERrr";
                     
                 }
-                 $cqry2 = "create table `".$idb."`(id INT(10) not null auto_increment primary key, bidders int(15) not null default '0')";
+                 $cqry2 = "create table `".$idb."`(id INT(10) not null auto_increment primary key, bidders varchar(15) not null default '0' ,rate varchar(30),comment varchar(60))";
                 if($conn->query($cqry2))
                 {
                       echo "posted";
@@ -80,28 +81,56 @@ $conn = new mysqli("localhost","root","","project_nlt");
             }
         }
         else
-        {   echo "<script>";
-            echo 'alert"error"';
-            echo "</script>";
+        {   echo "error";
         }
 
 
     }
+
     
 
     class data
     {
+      public function diff($datetime, $full = false)
+      {
+          $now = new DateTime;
+          $ago = new DateTime($datetime);
+          $diff = $now->diff($ago);
+
+          $diff->w = floor($diff->d / 7);
+          $diff->d -= $diff->w * 7;
+
+          $string = array(
+              'y' => 'year',
+              'm' => 'month',
+              'w' => 'week',
+              'd' => 'day',
+              'h' => 'hour',
+              'i' => 'minute',
+              's' => 'second',
+          );
+          foreach ($string as $k => &$v) {
+              if ($diff->$k) {
+                  $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+              } else {
+                  unset($string[$k]);
+              }
+          }
+
+          if (!$full) $string = array_slice($string, 0, 1);
+          return $string ? implode(', ', $string) . ' ago' : 'just now';
+      }
      
       public function newsfeed()
-     {  $conn = new mysqli("localhost","root","","project_nlt");
+     {  $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
          $username=$_SESSION["username"];
                 
-                      $idquery="select id from postdb order by date ASC limit 1";
+                      $idquery="select id from postdb order by id DESC limit 1";
                             if ($result=$conn->query($idquery))
                             {
                                 $r=mysqli_fetch_assoc($result);
                                  $pcid=$r['id'];
-
+                              
                             }
                             else
                             {
@@ -114,7 +143,10 @@ $conn = new mysqli("localhost","root","","project_nlt");
                         $pdescription=array(9);
                         $pbid=array(9);
                         $plike=array(9);
+                        $rtime=array(9);
+                        $pdp =array(9);
                         $count=0;
+                        $call = new Data;
                         while ($count <= 9 && $pcid >= 1) 
                         {
                              $fetch="select * from postdb where id='$pcid' ";
@@ -122,16 +154,31 @@ $conn = new mysqli("localhost","root","","project_nlt");
                              {
                                 if($row=mysqli_fetch_array($r))
                                 {
+
                                 $pid[$count]=$row['id'];
                                 $pname[$count]= $row['publisher'];
                                 $pskill[$count]=$row['rskills'];
-                                $ptype[$count]=$row['type'];
                                 $pdescription[$count]=$row['description'];
                                 $pbid[$count]=$row['bid'];
                                 $plike[$count]=$row['likes'];
+                                $rtime[$count] = $call->diff($row['Time']);
+                                
+                                
+                                $pqry="select * from useri_nfo where user_name='$pname[$count]'";
+
+                                  if ($p=$conn->query($pqry))
+                                  {
+                                    if ($pr = mysqli_fetch_array($p))
+                                    {
+                                      $pdp[$count]= $pr['dp'];
+                                    }
+                                  }
+                                  else
+                                  {
+                                    echo "errrr";
+                                  }
                                 $count++;
                                 $pcid--;
-
                                 }
                                 else
                                 {
@@ -143,7 +190,7 @@ $conn = new mysqli("localhost","root","","project_nlt");
                                 echo "connection_aborted";
                              }
                         }
-                        $_SESSION['pcid']= $pcid;
+                        $_SESSION['pcid']= $pcid++;
                        
                         
                        
@@ -164,7 +211,7 @@ $conn = new mysqli("localhost","root","","project_nlt");
                                     <div class='d-flex justify-content-between align-items-center'>
                                             <div class='d-flex justify-content-between align-items-center'>
                                                 <div class='mr-2'>
-                                                    <img class='rounded-circle' width='45' src='#' alt=''>
+                                                    <img class='rounded-circle' width='45' src='uploads/profile_img/$pdp[$counter]' alt=''>
                                                 </div>
                                                 <div class='ml-2'>
                                                    <div class='h5 m-0'>$pname[$counter]</div>
@@ -187,9 +234,9 @@ $conn = new mysqli("localhost","root","","project_nlt");
                                     </div>
                                 </div>
                                 <div class='card-body' style='background-color:#DDDEE9; color:#04093A;'>
-                                    <div class='text-muted h7 mb-2'> <i class='fa fa-clock-o'></i>10 min ago</div>
+                                    <div class='text-muted h7 mb-2'> <i class='fa fa-clock-o'></i>$rtime[$counter]</div>
                                         <h6 class='card-title'>i'm looking for <label>$pskill[$counter]</label>
-                                                    <label>$ptype[$counter]</label></h6>
+                                                
 
                                     <p class='card-text'>
                                         $pdescription[$counter]
@@ -204,11 +251,11 @@ $conn = new mysqli("localhost","root","","project_nlt");
                                     {
                                         $row=mysqli_fetch_array($l);
                                         if (isset($row['0'])) {
-                                            echo "<button type='submit' id='$pid[$counter]' style='margin-right: 10px;background-color: #4893E9;border: 2px solid blue ; border-radius:4px;' disabled><i class='fa fa-thumbs-up icon'></i>$plike[$counter]</button>" ; 
+                                            echo "<button type='submit' id='like' name='$pid[$counter]' style='margin-right: 10px;background-color: #4893E9;border: 2px solid blue ; border-radius:4px;' disabled><i class='fa fa-thumbs-up icon'></i>$plike[$counter]</button>" ; 
                                         }
                                          else
                                         {
-                                         echo "<button type='submit' id='$pid[$counter]' onclick='likesubmit(this.id); return false;'><i class='fa fa-thumbs-up icon'></i>$plike[$counter]</button>";
+                                         echo "<button type='submit' id='like' name='$pid[$counter]' onclick='likesubmit(this.name); return false;'><i class='fa fa-thumbs-up icon'></i>$plike[$counter]</button>";
                                         }
                                     }
                                     
@@ -227,7 +274,33 @@ $conn = new mysqli("localhost","root","","project_nlt");
                                        }
                                      else
                                        {
-                                            echo "<button type='submit' name='$pid[$counter]' onclick='bidsubmit(this.name); return false;'><i class='fa fa-handshake-o'></i>$pbid[$counter]Bid</input></button> " ; 
+                                            echo "
+                                            <form id='$pid[$counter]' entype='multipart/form-data' method='POST'>
+                                            <button type='button' id='bid' name='$pid[$counter]' data-toggle='modal' data-target='#myModal' return false;'><i class='fa fa-handshake-o'></i>$pbid[$counter]Bid</input></button>
+                                            <div class='modal fade' data-keyboard='false' data-backdrop='static' id='myModal'>
+                                              <div class='modal-dialog'>
+
+                                              <!-- Modal content-->
+                                              
+                                                <div class='modal-content'>
+                                                    <div class='modal-header'>
+                                                      <h4 class='modal-title'>Enter detail</h4>
+                                                      <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                                                    </div>
+                                                    <div class='modal-body'>
+                                                      <h6>Rate:</h6>
+                                                      <input class='btn-primary' type='text' name='rate' placeholder='$100-per/square'>
+                                                      <h6>Comment:</h6>
+                                                      <input class='btn-primary' type='text' name='comment'>
+                                                      <input type='hidden' value='$pid[$counter]' name='id'>
+                                                    </div>
+                                                    <div class='modal-footer'>
+                                                      <button type='button' onclick='bidsubmit(this.id);' id='$pid[$counter]' class='btn btn-primary'>Bid</button>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            </form>" ; 
                                        }
                                     }
                                 }
@@ -247,15 +320,15 @@ $conn = new mysqli("localhost","root","","project_nlt");
               
 
                 }
-                if ($pcid==0) {
+                if ($pcid<=1) {
                   echo "<div class='row justify-content-center align-self-center'>
-                    <p1 style='color:red;'>No more result</p1>
+                      <p1 style='color:red;'>No more result</p1>
                       </div>";
                 }
                 else
                 {
                 echo "<div class='row justify-content-center align-self-center'>
-                      <button class='$pcid' type='button'  name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;'' >Showmore<i class='fa fa-caret-down'></i> </button>
+                      <button class='$pcid' type='button'  name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;'>Showmore<i class='fa fa-caret-down'></i> </button>
                       </div>";
                         $_SESSION['pcid']=$pcid;
                 }
@@ -264,6 +337,7 @@ $conn = new mysqli("localhost","root","","project_nlt");
                 </div>";
            } 
     }
+ 
 
 ?>
 <!DOCTYPE html>
@@ -279,6 +353,21 @@ $conn = new mysqli("localhost","root","","project_nlt");
         crossorigin="anonymous">     
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
+
+<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
+
+
+<script>
+  const beamsClient = new PusherPushNotifications.Client({
+    instanceId: '8db64f20-5e26-4459-8aa0-751ac1d703dd',
+  });
+
+  beamsClient.start()
+    .then(() => beamsClient.addDeviceInterest('hello'))
+    .then(() => console.log('Successfully registered and subscribed!'))
+    .catch(console.error);
+</script>
+
 
 
 
@@ -303,7 +392,8 @@ $conn = new mysqli("localhost","root","","project_nlt");
                      var xmlhttp = new XMLHttpRequest();
                      xmlhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
-                            document.getElementById("responsetxt").innerHTML = this.responseText;
+                            document.getElementById("like").innerHTML = this.responseText;
+
                         }
                      };
                      xmlhttp.open("GET", "likebtn.php?q=" + pid, true);
@@ -311,20 +401,27 @@ $conn = new mysqli("localhost","root","","project_nlt");
 
      }
     
-     function bidsubmit(pid)
+     function bidsubmit(id)
     {
-                    if (pid.length == 0) {
-                        return;
-                    }
-                    
-                     var xmlhttp = new XMLHttpRequest();
-                     xmlhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            document.getElementById("responsetxt").innerHTML = this.responseText;
-                        }
-                     };
-                     xmlhttp.open("GET", "bidbtn.php?q=" + pid, true);
-                     xmlhttp.send();
+           var myform = document.getElementById(id);
+           var fd = new FormData(myform);
+            $.ajax({
+              url:"bidbtn.php",
+              type: 'POST',
+              data: fd,
+              processData: false,
+              contentType: false,
+              cache: false,
+              success:function(data)
+              {
+                console.log(data);
+                
+              },
+              error:function(html)
+              {
+                console.log(html);
+              }
+            });
 
      }
      function showmore(id)
@@ -350,6 +447,7 @@ $conn = new mysqli("localhost","root","","project_nlt");
   <div class="header">
     <h1>Welcome to E-Desk</h1>
     <p>the best place to find worker of different skills</p>
+
   </div>
 
 
@@ -361,27 +459,15 @@ $conn = new mysqli("localhost","root","","project_nlt");
                   <h4>E-Desk</h4>
                   
                 </div>
+                <div>
+                  <a href="login.php">Log out</a>
+                </div>
                        
-                      <form class="form-inline ml-auto mr-5 ">
-                      <div class="src">
-                          <input class="form-control form-control-sm ml-3 w-93" type="text" placeholder="text here"
-                            aria-label="Search">
-                      </div>
-                      <div class="src">
-                          <button class="btn btn-rounded btn-sm my-0 ml-sm-2 mr-auto" type="submit"><i class="fa fa-search"></i> Search</button>
-                      </div>
-                      </form>
-                      <div class="dropdown">
-                        <img class='rounded-circle' width="50px" src='uploads/gallery/<?php echo $psrc; ?>' alt=''>
-                          <div class="dropdown-content">
-                            <a href="logout.php">Log out</a>
-                          </div>
-                      </div>
                      
               </div>
               
               <div class="fixed-top main-menu">
-                <div class="flex-center p-5">
+                <div class="d-flex-center p-5">
                   <ul class="nav flex-row">
                     <li class="nav-item delay-1"><a class="nav-link" href="newhome.php"><i class="fa fa-home"></i> HOME</a></li>
                     <li class="nav-item delay-2"><a class="nav-link" href="newprofile.php"><i class="fa fa-user-o"></i>PROFILE</a></li>
@@ -393,7 +479,7 @@ $conn = new mysqli("localhost","root","","project_nlt");
               </div>
             </header>
         <br>
-    
+
        
     
     <div class="container-fluid gedf-wrapper" >
