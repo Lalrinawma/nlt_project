@@ -38,13 +38,19 @@ if (!$conn) {
                             $uidrselect = $uidr['u_id'];
                             $targetnoti = $uidr['u_id']."notidb";
                             $sendnoti = "insert into `".$targetnoti."`(sender,type,pid,rate,comment) values('$username','3','$lid','','')";
-                            if ($conn->query($sendnoti)) {
+                            if ($conn->query($sendnoti)) 
+                            {
                                 $act = "update useri_nfo set notifications=notifications+1 where u_id='$uidrselect'";
-                                try {
-                                    $conn->query($act);
-                                } catch (Exception $e) {
-                                    echo $e;
-                                }
+                                    if($conn->query($act))
+                                    {
+                                        echo "success";
+                                    }
+                                    else
+                                    {
+                                        echo "failed";
+                                    }
+                               
+                                
                             }
                             else
                             {

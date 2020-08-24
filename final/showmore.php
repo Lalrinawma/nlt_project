@@ -67,67 +67,53 @@ session_start();
                         $checkl="select likers from `".$checklid."` where likers='$username'";
                         $check2="select bidders from `".$checkbid."` where bidders='$username'";
                          echo "
-                      <div class='row justify-content-center align-self-center' >
-                        <div class='container-fluid'>
-                         <div class='col-md-4 mx-auto'>
-                           <div class='card gedf-card align-self-center' >
-                                <div class='card-header' style='background-color:#DDDEE9; color: #4893E9;'>
-                                    <div class='d-flex justify-content-between align-items-center'>
-                                            <div class='d-flex justify-content-between align-items-center'>
-                                                <div class='mr-2'>
-                                                    <img class='rounded-circle' width='45' src='uploads/profile_img/$pdp[$counter]' alt=''>
-                                                </div>
-                                                <div class='ml-2'>
-                                                   <div class='h5 m-0'>$pname[$counter]</div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class='dropdown'>
-                                                    <button class='btn btn-link dropdown-toggle' type='button' id='gedf-drop1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                        <i class='fa fa-ellipsis-h'></i>
-                                                    </button>
-                                                    <div class='dropdown-menu dropdown-menu-right' aria-labelledby='gedf-drop1'>
-                                                        <div class='h6 dropdown-header'>Configuration</div>
-                                                        <a class='dropdown-item' href='#'>Save</a>
-                                                        <a class='dropdown-item' href='#'>Hide</a>
-                                                        <a class='dropdown-item' href='#''>Report</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        
-                                    </div>
-                                    <div class='text-muted h7 mb-2'> <i class='fa fa-clock-o'></i>$rtime[$counter]</div>
-                                </div>
-                                <div class='card-body' style='background-color:#DDDEE9; color:#04093A;'>
-                                    
-                                        <h6 class='card-title'>i'm looking for <label>$pskill[$counter]</label>
-                                                
+                         <div class='card promoting-card' style='margin-top:5px;'>
 
-                                    <p class='card-text'>
-                                        $pdescription[$counter]
-                                    </p>
-                                </div>";
-                                echo "
-                                <div class='card-footer' style='background-color:#DDDEE9;'>
-                                  <div class='btn-wrapper text-center'>" ;
-                                  if($l=$conn->query($checkl))
+                            <!-- Card content -->
+                            <div class='card-body d-flex flex-row'>
+
+                              <!-- Avatar -->
+                              <img src='uploads/profile_img/$pdp[$counter]' class='rounded-circle mr-3' height='50px' width='50px' alt='avatar'>
+
+                              <!-- Content -->
+                              <div>
+
+                                <!-- Title -->
+                                <a href='#' class='card-title font-weight-bold mb-2'>$pname[$counter]</a>
+                                <!-- Subtitle -->
+                                <p class='card-text text-muted'><i class='fa fa-clock pr-2'></i>$rtime[$counter]</p>
+
+                              </div>
+
+                            </div>
+                            <div class='view overlay' style='padding-left: 15px;'>
+                              <p class='card-text' > <span style='background-color:#e44d3a;border-radius:3px; padding: 3px;color:#e3f0fe; font: italic 14px/30px Georgia, serif;'>i'm looking for <label> $pskill[$counter]</label> </span></p>
+                            </div>
+                            <div class='view overlay' style='padding-left: 15px; font:15px/30px Georgia, serif;'>
+                              <p class='card-text'> $pdescription[$counter]</p>
+                            </div>
+                            <hr>
+                            <!-- Card content -->
+                            <div class='card-body postfooter'>
+
+                              
+                                <!-- Button -->";
+                                if($l=$conn->query($checkl))
                                   {
                                       if(!empty($l))
                                       {
                                           $row=mysqli_fetch_array($l);
                                           if (isset($row['0'])) {
                                               echo "
-                                              <div class='group'>
-                                                  <button class='btn-group iconc' type='submit' id='like' name='$pid[$counter]'><i class='fa fa-thumbs-up'></i></button>
-                                                  <label id='l$pid[$counter]'>$plike[$counter]</label>
-                                                </div>" ; 
+                                              <div id='f$pid[$counter]'>
+                                                <i class='fa fa-heart   p-1 my-1 mr-3' style='color:#e44d3a' name='$pid[$counter]'  title='I like it'><label id='l$pid[$counter]'>$plike[$counter]</label></i>
+                                            </div>"; 
                                           }
                                            else
                                           {
                                            echo "
-                                            <div class='group'>
-                                            <button class='btn-group icon' type='submit' id='like' name='$pid[$counter]' onclick='likesubmit(this.name); return false;'><i class='fa fa-thumbs-up'></i></button>
-                                            <label id='l$pid[$counter]'>$plike[$counter]</label>
+                                           <div id='i$pid[$counter]'>
+                                                <i class='fa fa-heart p-1 my-1 mr-3' name='$pid[$counter]' onclick='likesubmit($pid[$counter]);' title='I like it'><label id='l$pid[$counter]'>$plike[$counter]</label></i>
                                             </div>";
                                           }
                                       }
@@ -143,18 +129,14 @@ session_start();
                                       {
                                          $row=mysqli_fetch_array($b);
                                          if (isset($row['0'])) {
-                                              echo "<div class='group'>
-                                                    <button class='btn-group iconc' type='submit' name='$pid[$counter]'><i class='fa fa-handshake-o'></i></input></button>";
-                                              echo "<label class='b$pid[$counter]'>$pbid[$counter]Bids</label>
-                                                    </div>";
+                                              echo "<i class='fas fa-dollar-sign p-1 my-1' name='$pid[$counter]' style='color:#e44d3a;' data-placement='top' title='Bid'><label class='b$pid[$counter]'>$pbid[$counter]Bids</label></i>";
+                                              
                                          }
                                        else
                                          {
                                               echo "
-                                                <div class='group'>
-                                                  <button class='btn-group icon' type='button' data-id='$pid[$counter]' name='bid-btn' data-toggle='modal' data-target='#myModal' return false;'><i class='fa fa-handshake-o'></i></input></button>";
-                                              echo "<label class='b$pid[$counter]'>$pbid[$counter]Bids</label>
-                                                </div>" ; 
+                                                   <i class='fas fa-dollar-sign p-1 my-1' id='bi$pid[$counter]' data-toggle='modal' data-id='$pid[$counter]'  data-target='#myModal'  name='$pid[$counter]' data-placement='top' title='Bid'><label class='b$pid[$counter]'>$pbid[$counter]Bids</label></i>
+                                               "; 
                                                
                                          }
                                       }
@@ -163,16 +145,20 @@ session_start();
                                   { 
                                       echo "string";
                                   }
-                                  echo "    
-                                  </div>
-                                </div>
-                              </div>
-                        
-                        </div>";
-                            $counter++;
-               echo "</div>
-                </div><br>";
-                }
+                                  echo "
+                               
+                                
+
+                              
+
+                            </div>
+
+                      </div>
+              
+                     <!-- Card -->
+                ";
+                  $counter++;
+                }  
                 if ($pcid<=1) {
                   echo "<div class='row justify-content-center align-self-center'>
                           <p1 style='color:red;'>No more result</p1>

@@ -54,7 +54,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                 $f=mysqli_fetch_array($ff);;
                 $idl=$f['0']."like";
                 $idb=$f['0']."bid";
-                $cqry = "create table `".$idl."`(id INT(10) not null auto_increment primary key, likers varchar(15) not null default '0')";
+                $cqry = "create table `".$idl."`(id INT(10) not null auto_increment primary key, likers varchar(35) not null default '0')";
                 if($conn->query($cqry))
                 {
                       echo "posted";
@@ -64,7 +64,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                     echo "ERrr";
                     
                 }
-                 $cqry2 = "create table `".$idb."`(id INT(10) not null auto_increment primary key, bidders varchar(15) not null default '0' ,rate varchar(30),comment varchar(60))";
+                 $cqry2 = "create table `".$idb."`(id INT(10) not null auto_increment primary key, bidders varchar(35) not null default '0' ,rate varchar(50),comment varchar(100))";
                 if($conn->query($cqry2))
                 {
                       echo "posted";
@@ -469,106 +469,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
  </script> 
 </head>
 <body>
-  <!--Modal: Login / Register Form-->
-              <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog cascading-modal" role="document">
-                  <!--Content-->
-                  <div class="modal-content">
-
-                    <!--Modal cascading tabs-->
-                    <div class="modal-c-tabs">
-
-                      <!-- Nav tabs -->
-                      <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
-                        <li class="nav-item">
-                          <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
-                            Login</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" data-toggle="tab" href="#panel8" role="tab"><i class="fas fa-user-plus mr-1"></i>
-                            Register</a>
-                        </li>
-                      </ul>
-
-                      <!-- Tab panels -->
-                      <div class="tab-content">
-                        <!--Panel 7-->
-                        <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
-
-                          <!--Body-->
-                          <div class="modal-body mb-1">
-                            <div class="md-form form-sm mb-5">
-                              <i class="fas fa-envelope prefix"></i>
-                              <input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
-                              <label data-error="wrong" data-success="right" for="modalLRInput10">Your email</label>
-                            </div>
-
-                            <div class="md-form form-sm mb-4">
-                              <i class="fas fa-lock prefix"></i>
-                              <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
-                              <label data-error="wrong" data-success="right" for="modalLRInput11">Your password</label>
-                            </div>
-                            <div class="text-center mt-2">
-                              <button class="btn btn-info">Log in <i class="fas fa-sign-in ml-1"></i></button>
-                            </div>
-                          </div>
-                          <!--Footer-->
-                          <div class="modal-footer">
-                            <div class="options text-center text-md-right mt-1">
-                              <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
-                              <p>Forgot <a href="#" class="blue-text">Password?</a></p>
-                            </div>
-                            <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
-                          </div>
-
-                        </div>
-                        <!--/.Panel 7-->
-
-                        <!--Panel 8-->
-                        <div class="tab-pane fade" id="panel8" role="tabpanel">
-
-                          <!--Body-->
-                          <div class="modal-body">
-                            <div class="md-form form-sm mb-5">
-                              <i class="fas fa-envelope prefix"></i>
-                              <input type="email" id="modalLRInput12" class="form-control form-control-sm validate">
-                              <label data-error="wrong" data-success="right" for="modalLRInput12">Your email</label>
-                            </div>
-
-                            <div class="md-form form-sm mb-5">
-                              <i class="fas fa-lock prefix"></i>
-                              <input type="password" id="modalLRInput13" class="form-control form-control-sm validate">
-                              <label data-error="wrong" data-success="right" for="modalLRInput13">Your password</label>
-                            </div>
-
-                            <div class="md-form form-sm mb-4">
-                              <i class="fas fa-lock prefix"></i>
-                              <input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
-                              <label data-error="wrong" data-success="right" for="modalLRInput14">Repeat password</label>
-                            </div>
-
-                            <div class="text-center form-sm mt-2">
-                              <button class="btn btn-info">Sign up <i class="fas fa-sign-in ml-1"></i></button>
-                            </div>
-
-                          </div>
-                          <!--Footer-->
-                          <div class="modal-footer">
-                            <div class="options text-right">
-                              <p class="pt-1">Already have an account? <a href="#" class="blue-text">Log In</a></p>
-                            </div>
-                            <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                        <!--/.Panel 8-->
-                      </div>
-
-                    </div>
-                  </div>
-                  <!--/.Content-->
-                </div>
-              </div>
-<!--Modal: Login / Register Form-->
+  
 <div class="column" >
             <form id="form2" enctype="multipart/form-data" action="<?php echo($_SERVER["PHP_SELF"]); ?>"    method="POST">
                 <div class="modal fade" id="postmodal">
@@ -580,7 +481,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                         </div>
                         <div class="modal-body">
                             
-                                            <input class="form-control" type="text" name="rskill" placeholder="skills required">
+                                            <input class="form-control" type="text" name="rskill" placeholder="What are you looking/selling">
                                             <label class="sr-only" for="message">post</label>
                                             <textarea class="form-control" id="message" rows="3" placeholder="Describe your publication" name="description" style=""></textarea>
                         </div>
