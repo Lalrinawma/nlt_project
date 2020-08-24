@@ -1,18 +1,13 @@
 <?php
 session_start();
-  echo "next";
 	if ($_POST['action']== 'true')
   {
 	 $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
          $username=$_SESSION["username"];
-     
-         		    if(isset($_SESSION['pcid']))
+         		    if(isset($_POST['id']))
          		{
-                        $pcid=$_SESSION['pcid'];
-                   
-                        
+                        $pcid=$_POST['id'];
                
-                                        
                         $pname= array(9);
                         $pskill=array(9);
                         $ptype=array(9);
@@ -37,9 +32,21 @@ session_start();
                                 $pbid[$count]=$row['bid'];
                                 $plike[$count]=$row['likes'];
                                 $rtime[$count] = $call->diff($row['Time']);
+                                $pqry="select * from useri_nfo where user_name='$pname[$count]'";
+
+                                  if ($p=$conn->query($pqry))
+                                  {
+                                    if ($pr = mysqli_fetch_array($p))
+                                    {
+                                      $pdp[$count]= $pr['dp'];
+                                    }
+                                  }
+                                  else
+                                  {
+                                    echo "errrr";
+                                  }
                                 $count++;
                                 $pcid--;
-                                
                                 }
                                 else
                                 {
@@ -51,10 +58,6 @@ session_start();
                                 echo "connection_aborted";
                              }
                         }
-                        $_SESSION['pcid']= $pcid++;
-                       
-                        
-                       
 
                         $counter=0;
                         while ($counter < $count) 
@@ -64,15 +67,15 @@ session_start();
                         $checkl="select likers from `".$checklid."` where likers='$username'";
                         $check2="select bidders from `".$checkbid."` where bidders='$username'";
                          echo "
-                        <div class='row justify-content-center align-self-center' >
-                         <div class='container-fluid'>
-                         <div class='col-md-6 mx-auto'>
+                      <div class='row justify-content-center align-self-center' >
+                        <div class='container-fluid'>
+                         <div class='col-md-4 mx-auto'>
                            <div class='card gedf-card align-self-center' >
                                 <div class='card-header' style='background-color:#DDDEE9; color: #4893E9;'>
                                     <div class='d-flex justify-content-between align-items-center'>
                                             <div class='d-flex justify-content-between align-items-center'>
                                                 <div class='mr-2'>
-                                                    <img class='rounded-circle' width='45' src='#' alt=''>
+                                                    <img class='rounded-circle' width='45' src='uploads/profile_img/$pdp[$counter]' alt=''>
                                                 </div>
                                                 <div class='ml-2'>
                                                    <div class='h5 m-0'>$pname[$counter]</div>
@@ -93,9 +96,10 @@ session_start();
                                             </div>
                                         
                                     </div>
+                                    <div class='text-muted h7 mb-2'> <i class='fa fa-clock-o'></i>$rtime[$counter]</div>
                                 </div>
                                 <div class='card-body' style='background-color:#DDDEE9; color:#04093A;'>
-                                    <div class='text-muted h7 mb-2'> <i class='fa fa-clock-o'></i>$rtime[$counter]</div>
+                                    
                                         <h6 class='card-title'>i'm looking for <label>$pskill[$counter]</label>
                                                 
 
@@ -105,78 +109,86 @@ session_start();
                                 </div>";
                                 echo "
                                 <div class='card-footer' style='background-color:#DDDEE9;'>
-                                <form>";
-                                if($l=$conn->query($checkl))
-                                {
-                                    if(!empty($l))
-                                    {
-                                        $row=mysqli_fetch_array($l);
-                                        if (isset($row['0'])) {
-                                            echo "<button type='submit' id='like' name='$pid[$counter]' style='margin-right: 10px;background-color: #4893E9;border: 2px solid blue ; border-radius:4px;' disabled><i class='fa fa-thumbs-up icon'></i>$plike[$counter]</button>" ; 
-                                        }
-                                         else
-                                        {
-                                         echo "<button type='submit' id='like' name='$pid[$counter]' onclick='likesubmit(this.name); return false;'><i class='fa fa-thumbs-up icon'></i>$plike[$counter]</button>";
-                                        }
-                                    }
-                                    
-                                }
-                                else{
-                                    echo "eRROR1s";
-                                }
+                                  <div class='btn-wrapper text-center'>" ;
+                                  if($l=$conn->query($checkl))
+                                  {
+                                      if(!empty($l))
+                                      {
+                                          $row=mysqli_fetch_array($l);
+                                          if (isset($row['0'])) {
+                                              echo "
+                                              <div class='group'>
+                                                  <button class='btn-group iconc' type='submit' id='like' name='$pid[$counter]'><i class='fa fa-thumbs-up'></i></button>
+                                                  <label id='l$pid[$counter]'>$plike[$counter]</label>
+                                                </div>" ; 
+                                          }
+                                           else
+                                          {
+                                           echo "
+                                            <div class='group'>
+                                            <button class='btn-group icon' type='submit' id='like' name='$pid[$counter]' onclick='likesubmit(this.name); return false;'><i class='fa fa-thumbs-up'></i></button>
+                                            <label id='l$pid[$counter]'>$plike[$counter]</label>
+                                            </div>";
+                                          }
+                                      }
+                                      
+                                  }
+                                  else{
+                                      echo "eRROR1s";
+                                  }
 
-                                 if($b=$conn->query($check2))
-                                {   
-                                    if(!empty($b))
-                                    {
-                                       $row=mysqli_fetch_array($b);
-                                       if (isset($row['0'])) {
-                                            echo "<button type='submit' name='$pid[$counter]' style='margin-right:10px ; background-color: #4893E9; border: 2px solid #4CAF50;' disabled><i class='fa fa-handshake-o'></i>$pbid[$counter]Bid</input></button>";
-                                       }
-                                     else
-                                       {
-                                            echo "<button type='submit' id='bid' name='$pid[$counter]' onclick='bidsubmit(this.name); return false;'><i class='fa fa-handshake-o'></i>$pbid[$counter]Bid</input></button> " ; 
-                                       }
-                                    }
-                                }
-                                else
-                                {
-                                    echo "string";
-                                }
-                                echo "    
-                                </form>
+                                   if($b=$conn->query($check2))
+                                  {   
+                                      if(!empty($b))
+                                      {
+                                         $row=mysqli_fetch_array($b);
+                                         if (isset($row['0'])) {
+                                              echo "<div class='group'>
+                                                    <button class='btn-group iconc' type='submit' name='$pid[$counter]'><i class='fa fa-handshake-o'></i></input></button>";
+                                              echo "<label class='b$pid[$counter]'>$pbid[$counter]Bids</label>
+                                                    </div>";
+                                         }
+                                       else
+                                         {
+                                              echo "
+                                                <div class='group'>
+                                                  <button class='btn-group icon' type='button' data-id='$pid[$counter]' name='bid-btn' data-toggle='modal' data-target='#myModal' return false;'><i class='fa fa-handshake-o'></i></input></button>";
+                                              echo "<label class='b$pid[$counter]'>$pbid[$counter]Bids</label>
+                                                </div>" ; 
+                                               
+                                         }
+                                      }
+                                  }
+                                  else
+                                  { 
+                                      echo "string";
+                                  }
+                                  echo "    
+                                  </div>
                                 </div>
-                                </div>
-        
+                              </div>
+                        
                         </div>";
                             $counter++;
-                 echo "</div>
+               echo "</div>
                 </div><br>";
-              
-
                 }
-
-                echo "past";
-                if($pcid<=0)
-                {
+                if ($pcid<=1) {
                   echo "<div class='row justify-content-center align-self-center'>
-                          <p1 style='color:red;'>That's all for today!!</p1>
-                      </div>";
-                      echo "past";
+                          <p1 style='color:red;'>No more result</p1>
+                        </div>";
                 }
                 else
                 {
                 echo "<div class='row justify-content-center align-self-center'>
-                      <button class='$pcid' type='button'  name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;'>Showmore<i class='fa fa-caret-down'></i> </button>
+                        <button class='$pcid' type='button' name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;'>Showmore<i class='fa fa-caret-down'></i></button>
                       </div>";
-                        $_SESSION['pcid']=$pcid;
-                  echo "ook";
+                       
                 }
-
                 echo "
                 <div id='$pcid'>
                 </div>";
-        }
+           } 
     }
         class data
         {

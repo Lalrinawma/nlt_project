@@ -48,30 +48,53 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
    <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
-
-
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-        crossorigin="anonymous">
-        
-
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
+<link rel="stylesheet" href="/nlt_project/final/fontawesome/css/all.css" >
 <link rel="stylesheet" type="text/css" href="newprofile.css">
 <script type="text/javascript">
+  
   $(document).ready(function(){
-  $('.nav-button').click(function(){
-  $('body').toggleClass('nav-open');
-  });
-  $('.nav-button2').click(function(){
-  $('body').toggleClass('nav-open');
-  });
-});
+    $('#edit-btn').click(function(){
+      window.location.href = "editprofile.php";
+    });
+    $('.nav-button').click(function(){
+      $.ajax({
+        url : "checknoti.php",
+        type : "GET",
+        success: function(data)
+        {
+          console.log(data);
+          if(data > 0 && data < 99)
+          {
+              $('.fg').toggleClass('badge');
+              document.getElementByClassName("badge")[0].innerHTML = this.responseText;
 
-  $("#imageuplo").ready(function()
+
+          }
+          else
+          {
+              if (data > 0 && data > 99 )
+              {
+                $('.fg').toggleClass('badge');
+                document.getElementByClassName("badge")[0].innerHTML("99+");
+              }
+          
+          }
+        }
+      });
+    $('.navication').toggleClass('nav-open');
+    });
+  
+  });
+
+  $("#imageupload").click(function()
   {
     $.ajax(
     {
@@ -92,39 +115,30 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
 <body>
   
 
-<!------ Include the above in your HEAD tag ---------->
 <div class="column " >
-<div class="header">
-    <h1>E-desk</h1>
-    <p>specially for hand worker</p>
-  </div>
-<header class="head-main rowh">
-  <div class="navbar navbar-dark box-shadow" style="background-color: black;">
-    <div class="navb d-flex align-items-center">
 
-      <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-      <h4>E-Desk</h4>
-      
-    </div>
-           
+        <div class="rowh">
+            <header class="head-main navication">
+              <div class="navbar navbar-dark box-shadow" style="background-color: black;">
+                <div class="navb d-flex align-items-center">
+                  <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
+                  <h4>E-Desk</h4>
+                              
+                </div>   
+              </div>
+              <div class="main-menu align-items-center">
+                
+                <div class="nav ">
+                 
+                    <a href="newhome.php"><i class="fa fa-home" ></i>Home </a>
+                    <a href="newnotification.php" ><i class="fa fa-bell" ></i>Notification<span class="fg">new</span></a>
+                    <a  href="newprofile.php" ><i class="fa fa-user " ></i>Profile</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i>Log out</a>
             
-        
-          
-         
-  </div>
-  
-  <div class="fixed-top main-menu">
-    <div class="flex-center p-5">
-      <ul class="nav flex-row">
-        <li class="nav-item delay-1"><a class="nav-link" href="newhome.php"><i class="fa fa-home"></i> HOME</a></li>
-        <li class="nav-item delay-2"><a class="nav-link" href="newprofile.php"><i class="fa fa-user-o"></i>PROFILE</a></li>
-        <li class="nav-item delay-3"><a class="nav-link" href=" newnotification.php"><i class="fa fa-bell"></i>NOTIFICATION</a></li>
-        <li class="nav-item delay-4"><a class="nav-link" href="#"><i class="fa fa-phone"></i>CONTACT US</a></li>
-      </ul>
-    </div>
-
-  </div>
-</header>
+                </div>
+              </div>
+            </header>
+        </div>
 <div class="modal fade" data-keyboard="false" data-backdrop="static" id="myModal" >
   <div class="modal-dialog">
 
@@ -148,7 +162,6 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
   </div>
 </div>
 <div class="container emp-profile">
-            <form method="post">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
@@ -171,7 +184,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <a href="editprofile.php" class="profile-edit-btn" name="" value="Edit Profile">Edit profile</a>
+                        <button id="edit-btn" type="button" class="profile-edit-btn" ><i class='fas fa-edit'></i> Edit profile</button>
                     </div>
                 </div>
                 <div class="row">
@@ -190,17 +203,10 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                     </div>
                     <div class="col-md-8">
                         <div class="card gedf-card">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">About</a>
-                            </li>
-
-                        </ul>
+                    <div class="card-header" style="color: #4285f4; background-color: #000000;">
+                         <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">About</a>
                     </div>
                     <div class="card-body">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                              <div class="row">
                                             <div class="col-md-6">
                                                 <label>Email</label>
@@ -225,14 +231,13 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                                                 <p><?php echo $address;?></p>
                                             </div>
                                         </div>
-                            </div>
-                        </div>  
+                            </div> 
 
-                     </div>
-                            
-                  </div>
                     </div>
-                    <br><br>
+                            
+              </div>
+                  
+                    
                         
                         
                                 

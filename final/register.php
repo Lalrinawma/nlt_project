@@ -3,11 +3,16 @@
 <html>
 <head>
 	<title>register new user</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
+<link rel="stylesheet" href="/nlt_project/final/fontawesome/css/all.css" >
 <link rel="stylesheet" type="text/css" href="register.css">
 
 <script type="text/javascript">
@@ -38,7 +43,7 @@
 				if (data == "success")
 				{
 					alert("Register Sucessfully");
-					window.location.href = "login.php";
+					window.location.href = "newlogin.php";
 				}
 				else
 				{
@@ -75,15 +80,19 @@
 </head>
 <body>
 <div class="row justify-content-center">
-	<div class="col-md-6 align-self-center">
-		<div class="card ">
-			 <div class="card-header">
-			 	<h5>Register new-user</h5>
+	<div class="col-md-6 align-self-center" style="margin-top: 40px;">
+		<div class="card">
+			 <div class="card-header brand_logo_container">
+				<img src="resource/Edesk.png" class="brand_logo" alt="Logo">
 			 </div>
-			 <div class="card-body">
+			 
+			 <div class="card-body" style="background-color: #173a4b;">
+			 <div class="card-title" style="background: #c0392b; text-align: center; padding: 10px;">
+			 	<h5>Register new user</h5>
+			 </div>
 			 	<form id="myform">
 			 	<div class="li">
-			 		<h6>User Details:</h6>
+			 		<h7>User Details:</76>
 			 		<div>
 			 			<input class="" type="text" name="name" placeholder="Name*">
 			 		</div>
@@ -93,20 +102,24 @@
 			 		<div>
 			 			<input class="" type="text" maxlength="10" name="phone_no" placeholder="Phone_no*">
 			 		</div>
+			 		<div>
+			 			<label>Gender</label>
+			 			<select name="gender" class="btn">
+			 				<option value="Male"> Male</option>
+			 				<option value="Female">Female</option>
+			 			</select>
+			 		</div>
 			 	</div>
 			 	<div class="li">
-			 		<h6>Looking for
-			 			<select onchange="utypefunction(this.value);" name="type">
-			 			<option value="work">Work/job</option>
-			 			<option value="worker">Worker</option>
+			 		<h7>Looking for
+			 			<select onchange="utypefunction(this.value);" name="type" class="btn">
+			 			<option  value="work">Work/job</option>
+			 			<option  value="worker">Worker</option>
 			 			</select>
-			 		</h6>
+			 		</h7>
 
 			 		<div id="skills">
-			 			<input type="text" name="skills1" list="suggestion" placeholder="skills1*">
-			 			<input type="text" name="skills2" list="suggestion" placeholder="skills2">
-			 			<input type="text" name="skills3" list="suggestion" placeholder="skills3">
-			 			<input type="text" name="skills4" list="suggestion" placeholder="skills4">
+			 			<input type="text" name="skills" list="suggestion" placeholder="skills1*">
 			 			<datalist id="suggestion">
 			 				<option value="Plumber">
 			 				<option value="electrician">
@@ -118,7 +131,7 @@
 			 		</div>
 			 	</div>
 			 	<div class="li">
-			 		<h6>Password</h6>
+			 		<h7>Password</h7>
 			 		<div>
 			 			<input type="password" name="password" placeholder="Password*">
 			 		</div>

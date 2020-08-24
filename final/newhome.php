@@ -37,7 +37,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
     else
     {
         echo "please login or register";
-        header("location:login.php");
+        header("location:newlogin.php");
     }
     if (isset($_POST['post'])) 
     {
@@ -190,10 +190,6 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                                 echo "connection_aborted";
                              }
                         }
-                        $_SESSION['pcid']= $pcid++;
-                       
-                        
-                       
 
                         $counter=0;
                         while ($counter < $count) 
@@ -203,196 +199,192 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                         $checkl="select likers from `".$checklid."` where likers='$username'";
                         $check2="select bidders from `".$checkbid."` where bidders='$username'";
                          echo "
-                        <div class='row justify-content-center align-self-center' >
-                         <div class='container-fluid'>
-                         <div class='col-md-6 mx-auto'>
-                           <div class='card gedf-card align-self-center' >
-                                <div class='card-header' style='background-color:#DDDEE9; color: #4893E9;'>
-                                    <div class='d-flex justify-content-between align-items-center'>
-                                            <div class='d-flex justify-content-between align-items-center'>
-                                                <div class='mr-2'>
-                                                    <img class='rounded-circle' width='45' src='uploads/profile_img/$pdp[$counter]' alt=''>
-                                                </div>
-                                                <div class='ml-2'>
-                                                   <div class='h5 m-0'>$pname[$counter]</div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class='dropdown'>
-                                                    <button class='btn btn-link dropdown-toggle' type='button' id='gedf-drop1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                        <i class='fa fa-ellipsis-h'></i>
-                                                    </button>
-                                                    <div class='dropdown-menu dropdown-menu-right' aria-labelledby='gedf-drop1'>
-                                                        <div class='h6 dropdown-header'>Configuration</div>
-                                                        <a class='dropdown-item' href='#'>Save</a>
-                                                        <a class='dropdown-item' href='#'>Hide</a>
-                                                        <a class='dropdown-item' href='#''>Report</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class='card-body' style='background-color:#DDDEE9; color:#04093A;'>
-                                    <div class='text-muted h7 mb-2'> <i class='fa fa-clock-o'></i>$rtime[$counter]</div>
-                                        <h6 class='card-title'>i'm looking for <label>$pskill[$counter]</label>
-                                                
+                         <div class='card promoting-card' style='margin-top:5px;'>
 
-                                    <p class='card-text'>
-                                        $pdescription[$counter]
-                                    </p>
-                                </div>";
-                                echo "
-                                <div class='card-footer' style='background-color:#DDDEE9;'>
-                                <form>";
+                            <!-- Card content -->
+                            <div class='card-body d-flex flex-row'>
+
+                              <!-- Avatar -->
+                              <img src='uploads/profile_img/$pdp[$counter]' class='rounded-circle mr-3' height='50px' width='50px' alt='avatar'>
+
+                              <!-- Content -->
+                              <div>
+
+                                <!-- Title -->
+                                <a href='#' class='card-title font-weight-bold mb-2'>$pname[$counter]</a>
+                                <!-- Subtitle -->
+                                <p class='card-text text-muted'><i class='fa fa-clock pr-2'></i>$rtime[$counter]</p>
+
+                              </div>
+
+                            </div>
+                            <div class='view overlay' style='padding-left: 15px;'>
+                              <p class='card-text' > <span style='background-color:#e44d3a;border-radius:3px; padding: 3px;color:#e3f0fe; font: italic 14px/30px Georgia, serif;'>i'm looking for <label> $pskill[$counter]</label> </span></p>
+                            </div>
+                            <div class='view overlay' style='padding-left: 15px; font:15px/30px Georgia, serif;'>
+                              <p class='card-text'> $pdescription[$counter]</p>
+                            </div>
+                            <hr>
+                            <!-- Card content -->
+                            <div class='card-body postfooter'>
+
+                              
+                                <!-- Button -->";
                                 if($l=$conn->query($checkl))
-                                {
-                                    if(!empty($l))
-                                    {
-                                        $row=mysqli_fetch_array($l);
-                                        if (isset($row['0'])) {
-                                            echo "<button type='submit' id='like' name='$pid[$counter]' style='margin-right: 10px;background-color: #4893E9;border: 2px solid blue ; border-radius:4px;' disabled><i class='fa fa-thumbs-up icon'></i>$plike[$counter]</button>" ; 
-                                        }
-                                         else
-                                        {
-                                         echo "<button type='submit' id='like' name='$pid[$counter]' onclick='likesubmit(this.name); return false;'><i class='fa fa-thumbs-up icon'></i>$plike[$counter]</button>";
-                                        }
-                                    }
-                                    
-                                }
-                                else{
-                                    echo "eRROR1s";
-                                }
+                                  {
+                                      if(!empty($l))
+                                      {
+                                          $row=mysqli_fetch_array($l);
+                                          if (isset($row['0'])) {
+                                              echo "
+                                              <div id='f$pid[$counter]'>
+                                                <i class='fa fa-heart   p-1 my-1 mr-3' style='color:#e44d3a' name='$pid[$counter]'  title='I like it'><label id='l$pid[$counter]'>$plike[$counter]</label></i>
+                                            </div>"; 
+                                          }
+                                           else
+                                          {
+                                           echo "
+                                           <div id='i$pid[$counter]'>
+                                                <i class='fa fa-heart p-1 my-1 mr-3' name='$pid[$counter]' onclick='likesubmit($pid[$counter]);' title='I like it'><label id='l$pid[$counter]'>$plike[$counter]</label></i>
+                                            </div>";
+                                          }
+                                      }
+                                      
+                                  }
+                                  else{
+                                      echo "eRROR1s";
+                                  }
 
-                                 if($b=$conn->query($check2))
-                                {   
-                                    if(!empty($b))
-                                    {
-                                       $row=mysqli_fetch_array($b);
-                                       if (isset($row['0'])) {
-                                            echo "<button type='submit' name='$pid[$counter]' style='margin-right:10px ; background-color: #4893E9; border: 2px solid #4CAF50;' disabled><i class='fa fa-handshake-o'></i>$pbid[$counter]Bid</input></button>";
-                                       }
-                                     else
-                                       {
-                                            echo "
-                                            <form id='$pid[$counter]' entype='multipart/form-data' method='POST'>
-                                            <button type='button' id='bid' name='$pid[$counter]' data-toggle='modal' data-target='#myModal' return false;'><i class='fa fa-handshake-o'></i>$pbid[$counter]Bid</input></button>
-                                            <div class='modal fade' data-keyboard='false' data-backdrop='static' id='myModal'>
-                                              <div class='modal-dialog'>
-
-                                              <!-- Modal content-->
+                                   if($b=$conn->query($check2))
+                                  {   
+                                      if(!empty($b))
+                                      {
+                                         $row=mysqli_fetch_array($b);
+                                         if (isset($row['0'])) {
+                                              echo "<i class='fas fa-dollar-sign p-1 my-1' name='$pid[$counter]' style='color:#e44d3a;' data-placement='top' title='Bid'><label class='b$pid[$counter]'>$pbid[$counter]Bids</label></i>";
                                               
-                                                <div class='modal-content'>
-                                                    <div class='modal-header'>
-                                                      <h4 class='modal-title'>Enter detail</h4>
-                                                      <button type='button' class='close' data-dismiss='modal'>&times;</button>
-                                                    </div>
-                                                    <div class='modal-body'>
-                                                      <h6>Rate:</h6>
-                                                      <input class='btn-primary' type='text' name='rate' placeholder='$100-per/square'>
-                                                      <h6>Comment:</h6>
-                                                      <input class='btn-primary' type='text' name='comment'>
-                                                      <input type='hidden' value='$pid[$counter]' name='id'>
-                                                    </div>
-                                                    <div class='modal-footer'>
-                                                      <button type='button' onclick='bidsubmit(this.id);' id='$pid[$counter]' class='btn btn-primary'>Bid</button>
-                                                    </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            </form>" ; 
-                                       }
-                                    }
-                                }
-                                else
-                                {
-                                    echo "string";
-                                }
-                                echo "    
-                                </form>
-                                </div>
-                                </div>
-        
-                        </div>";
-                            $counter++;
-                 echo "</div>
-                </div><br>";
-              
+                                         }
+                                       else
+                                         {
+                                              echo "
+                                                   <i class='fas fa-dollar-sign p-1 my-1' id='bi$pid[$counter]' data-toggle='modal' data-id='$pid[$counter]'  data-target='#myModal'  name='$pid[$counter]' data-placement='top' title='Bid'><label class='b$pid[$counter]'>$pbid[$counter]Bids</label></i>
+                                               "; 
+                                               
+                                         }
+                                      }
+                                  }
+                                  else
+                                  { 
+                                      echo "string";
+                                  }
+                                  echo "
+                               
+                                
 
-                }
+                              
+
+                            </div>
+
+                      </div>
+              
+                     <!-- Card -->
+                ";
+                  $counter++;
+                }  
                 if ($pcid<=1) {
                   echo "<div class='row justify-content-center align-self-center'>
-                      <p1 style='color:red;'>No more result</p1>
-                      </div>";
+                          <p1 style='color:red;'>No more result</p1>
+                        </div>";
                 }
                 else
                 {
                 echo "<div class='row justify-content-center align-self-center'>
-                      <button class='$pcid' type='button'  name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;'>Showmore<i class='fa fa-caret-down'></i> </button>
+                        <button class='$pcid' type='button' name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;'>Showmore<i class='fa fa-caret-down'></i></button>
                       </div>";
-                        $_SESSION['pcid']=$pcid;
+                       
                 }
                 echo "
                 <div id='$pcid'>
                 </div>";
            } 
-    }
- 
-
+    
+ }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <title>E-Desk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
-
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-        crossorigin="anonymous">     
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-
-<script src="https://js.pusher.com/beams/1.0/push-notifications-cdn.js"></script>
-
-
-<script>
-  const beamsClient = new PusherPushNotifications.Client({
-    instanceId: '8db64f20-5e26-4459-8aa0-751ac1d703dd',
-  });
-
-  beamsClient.start()
-    .then(() => beamsClient.addDeviceInterest('hello'))
-    .then(() => console.log('Successfully registered and subscribed!'))
-    .catch(console.error);
-</script>
-
-
-
-
+<script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
+<link rel="stylesheet" href="/nlt_project/final/fontawesome/css/all.css" >
 <link rel="stylesheet" type="text/css" href="newhome.css">
+
 <script type="text/javascript">
-  $(document).ready(function(){
-  $('.nav-button').click(function(){
-  $('body').toggleClass('nav-open');
+ 
+    $(document).ready(function(){
+       $('.carousel.carousel-multi-item.v-2 .carousel-item').each(function(){
+          var next = $(this).next();
+          if (!next.length) {
+            next = $(this).siblings(':first');
+          }
+          next.children(':first-child').clone().appendTo($(this));
+
+          for (var i=0;i<4;i++) {
+            next=next.next();
+            if (!next.length) {
+              next=$(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+          }
+        });
+    $('.nav-button').click(function(){
+      $.ajax({
+        url : "checknoti.php",
+        type : "GET",
+        success: function(data)
+        {
+          console.log(data);
+          if(data > 0 && data < 99)
+          {
+              $('.fg').toggleClass('badge');
+              document.getElementByClassName("badge")[0].innerHTML() = this.responseText;
+
+
+          }
+          else
+          {
+              if (data > 0 && data > 99 )
+              {
+                $('.fg').toggleClass('badge');
+                document.getElementByClassName("badge")[0].innerHTML("99+");
+              }
+          
+          }
+        }
+      });
+    $('.navication').toggleClass('nav-open');
+    });
+  
   });
-  $('.nav-button2').click(function(){
-  $('body').toggleClass('nav-open');
-  });
-});
 </script>
-<script>
-    function likesubmit(pid)
-    {
-                    if (pid.length == 0) {
-                        return;
-                    }
-                    
+<script type="text/javascript">
+      function likesubmit(pid)
+    {                $("#i"+pid).css({"color":"red"});
+                     console.log(pid);
                      var xmlhttp = new XMLHttpRequest();
                      xmlhttp.onreadystatechange = function() {
                         if (this.readyState == 4 && this.status == 200) {
-                            document.getElementById("like").innerHTML = this.responseText;
+                            document.getElementById("l"+pid).innerHTML = this.responseText;
 
                         }
                      };
@@ -400,178 +392,298 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                      xmlhttp.send();
 
      }
+</script>
+<script>
     
-     function bidsubmit(id)
-    {
-           var myform = document.getElementById(id);
-           var fd = new FormData(myform);
-            $.ajax({
-              url:"bidbtn.php",
-              type: 'POST',
-              data: fd,
-              processData: false,
-              contentType: false,
-              cache: false,
-              success:function(data)
-              {
-                console.log(data);
-                
-              },
-              error:function(html)
-              {
-                console.log(html);
-              }
-            });
+    
+     $(document).ready(function()
+    { 
+    
+     $('#myModal').on('show.bs.modal', function (e)
+        {
+          var pid = $(e.relatedTarget).data('id');
+          
+          var bid = 'bi'+pid;
+          if (bid != null)
+          {
+            console.log(bid);
+          }
+          else
+          {
+            console.log("null");
+          }
+        $('#bidsubmit').click(function()
+        {
+             $("#bi"+pid).css({"color":"red"});
+             var myform = document.getElementById("form1");
+             var fd = new FormData(myform);
+             fd.append('id',pid);
+              $.ajax({
+                url:"bidbtn.php",
+                type: 'POST',
+                data:fd,
 
-     }
+                processData: false,
+                contentType: false,
+                cache: false,
+                success:function(html)
+                {
+                  $('#comment').val("");
+                  $('#rate').val("");
+                  document.getElementById('#'+bid).innerHTML(html);
+                  console.log(html);
+                  
+                },
+                error:function(html)
+                {
+                  console.log(html);
+                }
+              });
+        });
+      });
+    });
+
      function showmore(id)
      {
+      console.log(id);
       jQuery.ajax({
            type: "POST",  
            url:'showmore.php',
-           data:{action:'true'},
+           data:{action:'true',id : id},
            success:function(html) {
             $("#" + id).html(html);
             $("." + id).hide();
+            
            }
 
 
       });
  
      }
+     function logout()
+     {
+       window.location.href="logout.php";
+       
+     }
                   
  </script> 
 </head>
 <body>
-<div class="column " >
-  <div class="header">
-    <h1>Welcome to E-Desk</h1>
-    <p>the best place to find worker of different skills</p>
+  <!--Modal: Login / Register Form-->
+              <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog cascading-modal" role="document">
+                  <!--Content-->
+                  <div class="modal-content">
 
-  </div>
+                    <!--Modal cascading tabs-->
+                    <div class="modal-c-tabs">
 
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
+                            Login</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#panel8" role="tab"><i class="fas fa-user-plus mr-1"></i>
+                            Register</a>
+                        </li>
+                      </ul>
 
-            <header class="head-main rowh">
-              <div class="navbar navbar-dark box-shadow" style="background-color: black;">
-                <div class="navb d-flex align-items-center">
+                      <!-- Tab panels -->
+                      <div class="tab-content">
+                        <!--Panel 7-->
+                        <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
 
-                  <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-                  <h4>E-Desk</h4>
-                  
-                </div>
-                <div>
-                  <a href="login.php">Log out</a>
-                </div>
-                       
-                     
-              </div>
-              
-              <div class="fixed-top main-menu">
-                <div class="d-flex-center p-5">
-                  <ul class="nav flex-row">
-                    <li class="nav-item delay-1"><a class="nav-link" href="newhome.php"><i class="fa fa-home"></i> HOME</a></li>
-                    <li class="nav-item delay-2"><a class="nav-link" href="newprofile.php"><i class="fa fa-user-o"></i>PROFILE</a></li>
-                    <li class="nav-item delay-3"><a class="nav-link" href="newnotification.php"><i class="fa fa-bell"></i>NOTIFICATION</a></li>
-                    <li class="nav-item delay-4"><a class="nav-link" href="#"><i class="fa fa-phone"></i>CONTACT US</a></li>
-                  </ul>
-                </div>
+                          <!--Body-->
+                          <div class="modal-body mb-1">
+                            <div class="md-form form-sm mb-5">
+                              <i class="fas fa-envelope prefix"></i>
+                              <input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
+                              <label data-error="wrong" data-success="right" for="modalLRInput10">Your email</label>
+                            </div>
 
-              </div>
-            </header>
-        <br>
+                            <div class="md-form form-sm mb-4">
+                              <i class="fas fa-lock prefix"></i>
+                              <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
+                              <label data-error="wrong" data-success="right" for="modalLRInput11">Your password</label>
+                            </div>
+                            <div class="text-center mt-2">
+                              <button class="btn btn-info">Log in <i class="fas fa-sign-in ml-1"></i></button>
+                            </div>
+                          </div>
+                          <!--Footer-->
+                          <div class="modal-footer">
+                            <div class="options text-center text-md-right mt-1">
+                              <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
+                              <p>Forgot <a href="#" class="blue-text">Password?</a></p>
+                            </div>
+                            <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                          </div>
 
-       
-    
-    <div class="container-fluid gedf-wrapper" >
-
-          <div class="row ">
-                  <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-header align-text-center">
-                            <h6 style="color:#4893E9; ">Quick Find</h6>
                         </div>
-                        <div class="sidenav">
-                          <div class="card-body">
-                            <form action="quickfind.php" method="POST" enctype="multipart/form-data">
-                              <button type="submit" name="name" value="woodworker" class="btn btn-outline-info" >Woodworker</button>
-                              <button type="submit" name="name" value="Cement-mistiri" class="btn btn-outline-warning" >Cement-mistiri</button>
-                              <button type="submit" name="name" value="labour" class="btn btn-outline-success">Labour/helper</button>
-                              <button type="submit" name="name" value="electrician" class="btn btn-outline-dark">Electrician</button>
-                              <button type="submit" name="name" value="plumer" class="btn btn-outline-primary">Plumber</button>
-                              <button type="submit" name="name" value="painter" class="btn btn-outline-danger">Painter</button>
-                            </form>
+                        <!--/.Panel 7-->
+
+                        <!--Panel 8-->
+                        <div class="tab-pane fade" id="panel8" role="tabpanel">
+
+                          <!--Body-->
+                          <div class="modal-body">
+                            <div class="md-form form-sm mb-5">
+                              <i class="fas fa-envelope prefix"></i>
+                              <input type="email" id="modalLRInput12" class="form-control form-control-sm validate">
+                              <label data-error="wrong" data-success="right" for="modalLRInput12">Your email</label>
+                            </div>
+
+                            <div class="md-form form-sm mb-5">
+                              <i class="fas fa-lock prefix"></i>
+                              <input type="password" id="modalLRInput13" class="form-control form-control-sm validate">
+                              <label data-error="wrong" data-success="right" for="modalLRInput13">Your password</label>
+                            </div>
+
+                            <div class="md-form form-sm mb-4">
+                              <i class="fas fa-lock prefix"></i>
+                              <input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
+                              <label data-error="wrong" data-success="right" for="modalLRInput14">Repeat password</label>
+                            </div>
+
+                            <div class="text-center form-sm mt-2">
+                              <button class="btn btn-info">Sign up <i class="fas fa-sign-in ml-1"></i></button>
+                            </div>
+
+                          </div>
+                          <!--Footer-->
+                          <div class="modal-footer">
+                            <div class="options text-right">
+                              <p class="pt-1">Already have an account? <a href="#" class="blue-text">Log In</a></p>
+                            </div>
+                            <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
                           </div>
                         </div>
+                        <!--/.Panel 8-->
+                      </div>
+
                     </div>
                   </div>
-                  <br>
-                 <div class="col-md-6 gedf-main" style="position: relative;">
-
-                        <!--- \\\\\\\Post-->
-                    <form enctype="multipart/form-data" action="<?php echo($_SERVER["PHP_SELF"]); ?>"    method="POST">
-                        <div class="card gedf-card">
-                            <div class="card-header" style="background-color: #35414F;">
-                              <h5 style="color: #4893E9">Make Publication</h5>
-                            </div>
-                            <div class="card-body" style=' background-color: #35414F;'>
-                                <div class="tab-content" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                                        
-                                        <br>
-                                        <div>
-                                            <input class="form-control" type="text" name="rskill" placeholder="skills required" style="border-radius: 5px; padding-left: 5px; background-color: #35414F; color: white;">
-                                        </div>
-                                       <br>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="message">post</label>
-                                            <textarea class="form-control" id="message" rows="3" placeholder="Describe your publication" name="description" style="background-color: #35414F; color: white;"></textarea>
-                                        </div>
-
-                                    </div>
-                                    
-                                </div>
-                                <div class="btn-toolbar justify-content-between">
-                                    <div class="btn-group">
-                                        <button type="submit" name="post" class="btn btn-primary">Post</button>
-                                    </div>
-                                    <div class="btn-group">
-                                        <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i class="fa fa-globe"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-                                            <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a>
-                                            <a class="dropdown-item" href="#"><i class="fa fa-users"></i> Friends</a>
-                                            <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Just me</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                  <!--/.Content-->
+                </div>
+              </div>
+<!--Modal: Login / Register Form-->
+<div class="column" >
+            <form id="form2" enctype="multipart/form-data" action="<?php echo($_SERVER["PHP_SELF"]); ?>"    method="POST">
+                <div class="modal fade" id="postmodal">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                           <h6 class="modal-title">Make publication</h6>
+                           <button type='button' class='close' data-dismiss='modal'>&times;</button>
                         </div>
-                        </form>
+                        <div class="modal-body">
+                            
+                                            <input class="form-control" type="text" name="rskill" placeholder="skills required">
+                                            <label class="sr-only" for="message">post</label>
+                                            <textarea class="form-control" id="message" rows="3" placeholder="Describe your publication" name="description" style=""></textarea>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="submit" name="post" class="btn btn-primary">Post</button>
+                        </div>
+                      </div>
                     </div>
                 </div>
-            </div>  
-        
-        <br><br>
+              </form>
+  <form id='form1'>                                  
+    <div class='modal fade' data-keyboard='false' data-backdrop='static' id='myModal'>
+      <div class='modal-dialog'>      
+        <div class='modal-content'>
+            <div class='modal-header'>
+              <h4 class='modal-title'>Enter detail</h4>
+              <button type='button' class='close' data-dismiss='modal'>&times;</button>
+            </div>
+            <div class='modal-body'>
+              <h6>Rate:</h6>
+              <input class='btn-primary' type='text' id="rate" name='rate' placeholder='eg.$100-per/square'>
+              <h6>Comment:</h6>
+              <input class='btn-primary' type='text' id="comment" name='comment'>
+    
+            </div>
+            <div class='modal-footer'>
+              <button type='button' id="bidsubmit" name='bid' class='btn btn-primary' data-dismiss='modal'>Bid</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+
+        <div class="rowh">
+            <header class="head-main navication">
+              <div class="navbar navbar-dark box-shadow" style="background-color: black;">
+                <div class="navb d-flex align-items-center">
+                  <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
+                  <img src="resource/Edesk.png" class="brand_logo" alt="Logo" style="height: 50%; width: 50%;">
+                              
+                </div>   
+              </div>
+              <div class="main-menu align-items-center">
+                
+                <div class="nav ">
+                 
+                    <a href="newhome.php"><i class="fa fa-home" ></i>Home </a>
+                    <a  href="newprofile.php" ><i class="fa fa-user " ></i>Profile</a>
+                    <a href="newnotification.php" ><i class="fa fa-bell" ></i>Notification<span class="fg">new</span></a>
+                    <a onclick="logout();"><i class="fas fa-sign-out-alt"></i>Log out</a>
             
+                </div>
+              </div>
+            </header>
+        </div>
 
-         <div>
-            <?php 
-            $fetch = new data;
-            $fetch->newsfeed();
-            ?>           
-         </div>
+ 
+<div class="container-fluid" style="margin-top: 40px;">
+  
+  <div class="row " >
+    <div class="col-md-3 sidenav">
+
+      <div class="container-fluid" style="margin-bottom: 50px; margin-top: 5px;">
+        <h7>Quick find</h7>
+        <hr>
+        <form class="d-flex-center jutify-content-center sidenav" action="quickfind.php" method="POST" enctype="multipart/form-data">
+        <div class="container h-100">
+            <div class="d-flex justify-content-center h-100">
+              <div class="searchbar">
+                <input class="search_input" type="text" name="" placeholder="Search...">
+                <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+              </div>
+            </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-6 "> 
+       <div class="row justify-content-center epd">
+          <div class="container-fluid" > 
+            <div class="card promoting-card" style='margin-bottom: 15px' >
+              <div class='card-body' style="background-color:#000000; opacity: 5; float: left;" >
+                  <!-- Avatar -->
+                  <img src='uploads/profile_img/<?php echo $psrc; ?>' class='rounded-circle mr-3' height='50px' width='50px' alt='avatar'>
+                  <!-- Content -->
+                  <button class="btn btn-default" style="float:right;" data-toggle="modal" data-target="#postmodal" type="button" placeholder="Make publication">Create Post</button>
+              </div>
+            </div>
+          </div>
            
+           <div class="container-fluid">
+                <?php 
+                $fetch = new data;
+                $fetch->newsfeed();
+                ?>           
+           </div>
+      </div>
+    </div>
   </div>
+</div>
+</div>
 
-      
-  </div>
-    <br>
-    <div class="footers">
-      
-  </div>
-   
 
 
 </body>

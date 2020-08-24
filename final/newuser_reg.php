@@ -4,10 +4,8 @@ if (isset($_POST['name'])) {
 	$uname = $_POST['name'];
 	$uaddress = $_POST['address'];
 	$ucontact = $_POST['phone_no'];
-	$skills1= $_POST['skills1'];
-	$skills2= $_POST['skills2'];
-	$skills3= $_POST['skills3'];
-	$skills4= $_POST['skills4'];
+	$skills= $_POST['skills'];
+	$gender= $_POST['gender'];
 	$speciality =$_POST['speciality'];
 	$password = $_POST['password'];
 	$tqry = "select * from useri_nfo where user_name= '$uname'";
@@ -18,11 +16,24 @@ if (isset($_POST['name'])) {
 		}
 		else
 		{
-			$qry = "insert into useri_nfo(user_name,user_password,address,phone_no,skills,skills2,skills3,skills4,speciality,status,dp) values('$uname','$password','$uaddress','$ucontact','$skills1','$skills2','$skills3','$skills4','$speciality','available','avatar.png')";
+			$qry = "insert into useri_nfo(user_name,user_password,address,phone_no,skills,gender,speciality,status,dp,notifications,email) values('$uname','$password','$uaddress','$ucontact','$skills','$gender','$speciality','available','avatar.png',1,'')";
 			if($conn->query($qry))
 			{
-				echo"success";
-				return true;
+				$qry2 = "select u_id from useri_nfo where user_name = '$uname'";
+				if ($result = $conn->query($qry2)) {
+					$row = mysqli_fetch_array($result);
+					$notidbname = $row['u_id']."notidb";
+					$qry3 ="CREATE TABLE `".$notidbname."` (n_id int(11) NOT NULL,sender varchar(40) COLLATE utf8_bin NOT NULL,type int(10) NOT NULL,pid int(11) DEFAULT NULL,rate varchar(40) COLLATE utf8_bin DEFAULT NULL,comment varchar(100) COLLATE utf8_bin DEFAULT NULL,Time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
+					if ($conn->query($qry3)) {
+						echo"success";
+						return true;
+					}
+					else
+					{
+						echo "Database busy";
+					}
+				}
+				
 			}
 			else
 			{

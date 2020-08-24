@@ -38,6 +38,7 @@ session_start();
 <html>
 <head>
 	<title>register new user</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -102,13 +103,35 @@ session_start();
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
-  $('.nav-button').click(function(){
-  $('body').toggleClass('nav-open');
+    $('.nav-button').click(function(){
+      $.ajax({
+        url : "checknoti.php",
+        type : "GET",
+        success: function(data)
+        {
+          console.log(data);
+          if(data > 0 && data < 99)
+          {
+              $('.fg').toggleClass('badge');
+              document.getElementByClassName("badge")[0].innerHTML = this.responseText;
+
+
+          }
+          else
+          {
+              if (data > 0 && data > 99 )
+              {
+                $('.fg').toggleClass('badge');
+                document.getElementByClassName("badge")[0].innerHTML("99+");
+              }
+          
+          }
+        }
+      });
+    $('.navication').toggleClass('nav-open');
+    });
+  
   });
-  $('.nav-button2').click(function(){
-  $('body').toggleClass('nav-open');
-  });
-});
 </script>
 <link rel="stylesheet" type="text/css" href="editprofile.css">
 </head>
@@ -119,31 +142,33 @@ session_start();
   </div>
 
 
-            <header class="head-main rowh">
+            <div class="navication rowh">
+            <header class="head-main ">
               <div class="navbar navbar-dark box-shadow" style="background-color: black;">
                 <div class="navb d-flex align-items-center">
-
                   <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-                  <h4>E-Desk</h4>
-                  
+                  <h4>E-Desk</h4>             
                 </div>
-                   
-                      
-                     
-              </div>
+
+
               
+                <div>
+                  <a href="login.php">Log out</a>
+                </div>     
+              </div>
               <div class="fixed-top main-menu">
-                <div class="d-flex-center p-5">
-                  <ul class="nav flex-row">
-                    <li class="nav-item delay-1"><a class="nav-link" href="newhome.php"><i class="fa fa-home"></i> HOME</a></li>
-                    <li class="nav-item delay-2"><a class="nav-link" href="newprofile.php"><i class="fa fa-user-o"></i>PROFILE</a></li>
-                    <li class="nav-item delay-3"><a class="nav-link" href="newnotification.php"><i class="fa fa-bell"></i>NOTIFICATION</a></li>
+                <button type="button" class="nav-button">&times;</button>
+                <div class="d-flex-center p-5 ">
+                  <ul class="nav flex-row align-text-center">
+                    <li class="nav-item delay-1"><a class="nav-link" href="newhome.php"><i class="fa fa-home"></i>HOME     </a></li>
+                    <li class="nav-item delay-3"><a class="nav-link" href="newnotification.php"><i class="fa fa-bell"></i>NOTIFICATION<span class="fg">new</span></a></li>
+                    <li class="nav-item delay-2"><a class="nav-link" href="newprofile.php"><i class="fa fa-user"></i>PROFILE</a></li>
                     <li class="nav-item delay-4"><a class="nav-link" href="#"><i class="fa fa-phone"></i>CONTACT US</a></li>
                   </ul>
                 </div>
-
               </div>
-          	</header>
+            </header>
+        </div>
 <div class="row justify-content-center" style="margin-top: 5px;">
 	<div class="col-md-6 align-self-center">
 		<div class="card ">

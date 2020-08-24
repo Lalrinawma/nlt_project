@@ -16,7 +16,7 @@ if (isset($_POST['name'])) {
 	{	$r = mysqli_fetch_array($row);
 		if ( $r['user_name'] == $user_name || mysqli_num_rows($row) == 0) 
 		{
-			$qry = "update useri_nfo set user_name ='$uname',phone_no = '$contact',address = '$address',email = '$email',skills = '$skills',gender ='$gender',speciality = 'speciality' where u_id='$uid' ";
+			$qry = "update useri_nfo set user_name ='$uname',phone_no = '$contact',address = '$address',email = '$email',skills = '$skills',gender ='$gender',speciality = '$speciality' where u_id='$uid' ";
 			if($conn->query($qry))
 			{
 				echo"success";

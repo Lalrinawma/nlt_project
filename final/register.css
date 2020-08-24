@@ -1,3 +1,10 @@
+body
+{
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #60a3bc !important;
+}
 .li
 {
 	color: #4893E9;
@@ -21,4 +28,19 @@
 .li label
 {
 	color: red;
+}
+
+.brand_logo_container 
+{
+			border-radius: 50%;
+			background: #173a4b;
+			padding: 10px;
+			text-align: center;
+}
+.brand_logo 
+{
+			height: 150px;
+			width: 150px;
+			border-radius: 50%;
+			border: 2px solid white;
 }

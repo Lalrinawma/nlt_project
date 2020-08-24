@@ -12,6 +12,7 @@ if (!$conn)
         $comment=$_POST['comment'];
         $bid=$lid."bid";
         $like_qry = "update postdb set bid=bid+1 where id ='$lid'";
+        $selectpublisher = "select publisher from postdb where id ='$lid'";
         $likers_qry="insert into `".$bid."`(bidders,rate,comment) values('$username','$rate','$comment')";
         $slike_qry="select bid from postdb where id='$lid'";
         if ($conn->query($likers_qry))
@@ -22,6 +23,40 @@ if (!$conn)
                 	$row=mysqli_fetch_array($r);
                 	echo $row['bid'];
                     echo "Bids";
+                    if($n = $conn->query($selectpublisher))
+                    {
+                        $nr = mysqli_fetch_array($n);
+                        $target = $nr['publisher'];
+                        $selectpublisherid = "select u_id from useri_nfo where user_name='$target'"; 
+                        if ($uidfetch = $conn->query($selectpublisherid)) 
+                        {
+                            $uidr = mysqli_fetch_array($uidfetch);
+                            $uidrselect = $uidr['u_id'];
+                            $targetnoti = $uidr['u_id']."notidb";
+                            $sendnoti = "insert into `".$targetnoti."`(sender,type,pid,rate,comment) values('$username','1','$lid','$rate','$comment')";
+                            if ($conn->query($sendnoti)) {
+                                $act = "update useri_nfo set notifications=notifications+1 where u_id='$uidrselect'";
+                                try {
+                                    $conn->query($act);
+                                } catch (Exception $e) {
+                                    echo $e;
+                                }
+                            }
+                            else
+                            {
+                                echo "1";
+                            }
+                        }
+                        else
+                        {
+                            echo "2";
+                        }
+                    }
+                    else
+                    {
+                        echo "string";
+                    }
+                    
                 }
                 else
                 {
