@@ -1,12 +1,13 @@
 body {
-            background: #BBBECC; 
+            background: #60a3bc; 
             max-width: 100%;
             overflow-x: hidden;
+            font-family: 'sans-serif';
 
     }
 .main-menu{width: 100%; height: 50%%; opacity: 0; visibility: hidden;}
 .nav-open .main-menu {opacity: 1; visibility: visible; background: rgba(0, 0, 0, 0.92); text-align: center;}
-.main-menu .nav li a{color:#FFF; font-size: 2vh; font-weight:300; }
+.main-menu .nav a{color:#FFF; font-size: 2vh; font-weight:300; }
 .main-menu .nav li{
     opacity: 0;
     -webkit-transform: translateY(-40px);
@@ -44,7 +45,6 @@ body {
 {
   position: relative;
   color: #f2f2f2;
-  padding:10px 50px 12px 50px;
   font-size: 15px;
 }
 .src h4{

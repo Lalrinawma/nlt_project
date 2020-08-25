@@ -167,7 +167,7 @@ session_start();
                 else
                 {
                 echo "<div class='row justify-content-center align-self-center'>
-                        <button class='$pcid' type='button' name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;'>Showmore<i class='fa fa-caret-down'></i></button>
+                        <button class='$pcid' type='button' name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;background-color:#000000;'>Showmore<i class='fa fa-caret-down'></i></button>
                       </div>";
                        
                 }

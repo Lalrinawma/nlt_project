@@ -2,12 +2,13 @@ body {
             
             overflow-x: hidden;
              font-family:'sans-serif';
+             background-color: #60a3bc;
 
     }
-.main-menu{opacity: 0; width: 100%; height: 50%;visibility: hidden;}
+.main-menu{opacity: 0;visibility: hidden;}
 .nav-open .main-menu {transition: 0.5s; z-index: 111;  overflow-x: hidden; opacity: 1; visibility: visible; background: rgba(0, 0, 0, 0.92);text-align: center;}
-.main-menu .nav a{color:#FFF;font-weight:300; }
-.main-menu .nav li{
+.main-menu .nav a{color:#FFF;font-weight:300; font-size: 2vh;}
+.main-menu .nav a{
     opacity: 0;
     -webkit-transform: translateY(-40px);
     transform: translateY(-40px);
@@ -18,7 +19,7 @@ body {
 }
 @media only screen and(max-device-width: 400px)
 {
- .main-menu .nav li a{color:#FFF;  font-weight:400; }
+ .main-menu .nav a{float: left; padding:3px;}
 
 }
 .rowh
@@ -67,11 +68,9 @@ body {
   margin-top: 5px;
 }
 .nav-open .main-menu .nav a{
-    color: #212529;
     opacity: 1;
     margin: 10px;
     padding: 10px;
-    background-color: #2bbbad;
     
 }
 
@@ -195,7 +194,7 @@ body {
     
     /* Set gray background color and 100% height */
     .sidenav {
-      background-color: #bfcfd0;
+      background-color: #000000;
       height: 100%;
       margin-bottom: 20px;
     }

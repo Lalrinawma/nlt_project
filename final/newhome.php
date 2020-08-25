@@ -57,7 +57,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                 $cqry = "create table `".$idl."`(id INT(10) not null auto_increment primary key, likers varchar(35) not null default '0')";
                 if($conn->query($cqry))
                 {
-                      echo "posted";
+                      
                 }
                 else
                 {
@@ -67,7 +67,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                  $cqry2 = "create table `".$idb."`(id INT(10) not null auto_increment primary key, bidders varchar(35) not null default '0' ,rate varchar(50),comment varchar(100))";
                 if($conn->query($cqry2))
                 {
-                      echo "posted";
+                      echo "<script> alert('success');</script>";
                 }
                 else
                 {
@@ -521,11 +521,11 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
               <div class="navbar navbar-dark box-shadow" style="background-color: black;">
                 <div class="navb d-flex align-items-center">
                   <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-                  <img src="resource/Edesk.png" class="brand_logo" alt="Logo" style="height: 50%; width: 50%;">
+                  <img src="resource/Edesk.png" class="brand_logo" alt="Logo" style="height: 80px; width: 80px;">
                               
                 </div>   
               </div>
-              <div class="main-menu align-items-center">
+              <div class="main-menu ">
                 
                 <div class="nav ">
                  
@@ -552,8 +552,8 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
         <div class="container h-100">
             <div class="d-flex justify-content-center h-100">
               <div class="searchbar">
-                <input class="search_input" type="text" name="" placeholder="Search...">
-                <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                <input class="search_input" type="text" name="name" placeholder="Search...">
+                <button type="submit" class="search_icon"><i class="fas fa-search" style="color: #000000;"></i></button>
               </div>
             </div>
         </div>

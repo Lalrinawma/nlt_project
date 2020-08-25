@@ -43,7 +43,7 @@ if (!$conn) {
                                 $act = "update useri_nfo set notifications=notifications+1 where u_id='$uidrselect'";
                                     if($conn->query($act))
                                     {
-                                        echo "success";
+                                        return;
                                     }
                                     else
                                     {
@@ -54,7 +54,7 @@ if (!$conn) {
                             }
                             else
                             {
-                                echo "1";
+                               echo $conn->error;
                             }
                         }
                         else

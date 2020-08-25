@@ -23,7 +23,7 @@ if (isset($_POST['name'])) {
 				if ($result = $conn->query($qry2)) {
 					$row = mysqli_fetch_array($result);
 					$notidbname = $row['u_id']."notidb";
-					$qry3 ="CREATE TABLE `".$notidbname."` (n_id int(11) NOT NULL,sender varchar(40) COLLATE utf8_bin NOT NULL,type int(10) NOT NULL,pid int(11) DEFAULT NULL,rate varchar(40) COLLATE utf8_bin DEFAULT NULL,comment varchar(100) COLLATE utf8_bin DEFAULT NULL,Time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
+					$qry3 ="CREATE TABLE `".$notidbname."` (n_id int(11) AUTO_INCREMENT PRIMARY KEY,sender varchar(40) COLLATE utf8_bin NOT NULL,type int(10) NOT NULL,pid int(11) DEFAULT NULL,rate varchar(40) COLLATE utf8_bin DEFAULT NULL,comment varchar(100) COLLATE utf8_bin DEFAULT NULL,Time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
 					if ($conn->query($qry3)) {
 						echo"success";
 						return true;

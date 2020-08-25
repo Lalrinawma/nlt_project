@@ -1,9 +1,9 @@
 <?php
 session_start();
 $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
-    if (isset($_SESSION["username"])) {
+    if (isset($_POST["name"])) {
          
-            $username=$_SESSION["username"];
+            $username=$_POST["name"];
             if (!$conn)
             {
                 echo "database error";
@@ -18,6 +18,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
             {
             $r = $result->fetch_array(MYSQLI_ASSOC); // bind the data from the first result row to $r
                 $phone_no = $r['phone_no'];
+                $name = $r['user_name'];
                 $address=$r['address'];
                 $email=$r['email'];
                 $dpsrc=$r['dp'];
@@ -35,9 +36,8 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
     }         
     else
     {
-        echo "please login or register";
-        header("location:login.php");
-    }
+        echo "User Not found";
+     } 
 
 
 ?>
@@ -122,59 +122,36 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
               <div class="navbar navbar-dark box-shadow" style="background-color: black;">
                 <div class="navb d-flex align-items-center">
                   <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-                  <img src="resource/Edesk.png" class="brand_logo" alt="Logo" style="height: 80px; width: 80px;">
+                  <h4>E-Desk</h4>
                               
                 </div>   
               </div>
-              <div class="main-menu ">
+              <div class="main-menu align-items-center">
                 
                 <div class="nav ">
                  
                     <a href="newhome.php"><i class="fa fa-home" ></i>Home </a>
-                    <a  href="newprofile.php" ><i class="fa fa-user " ></i>Profile</a>
                     <a href="newnotification.php" ><i class="fa fa-bell" ></i>Notification<span class="fg">new</span></a>
-                    <a onclick="logout();"><i class="fas fa-sign-out-alt"></i>Log out</a>
+                    <a  href="newprofile.php" ><i class="fa fa-user " ></i>Profile</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i>Log out</a>
             
                 </div>
               </div>
             </header>
         </div>
-<div class="modal fade" data-keyboard="false" data-backdrop="static" id="myModal" >
-  <div class="modal-dialog">
 
-  <!-- Modal content-->
-  <form id="myform" action="uploadpicture.php" method="POST" enctype="multipart/form-data">
-    <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Update Profile-picture</h4>
-        </div>
-        <div class="modal-body">
-          <h6>Choose Photo</h6>
-          <input class="btn-primary" type="file" name="fileToUpload">
-        </div>
-        <div class="modal-footer">
-          <button type="submit" id="imageupload" class="btn btn-primary">Upload</button>
-        </div>
-    </div>
-  </form>
-
-  </div>
-</div>
 <div class="container emp-profile">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
                             <img src="uploads/profile_img/<?php echo $dpsrc; ?>" alt="Image"/>
-                              <div class="file btn btn-lg btn-primary">
-                                  <button type="button" class="btn-primary-outline" data-toggle="modal" data-target="#myModal" style="color: white;">Change photo <i class="fa fa-camera"></i></button>
-                              </div>
+                              
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                        <?php echo $_SESSION["username"]; ?>
+                                        <?php echo $name; ?>
                                     </h5>
                                     <h6>
                                         <?php echo $skills; ?>
@@ -183,9 +160,7 @@ $conn = new mysqli("localhost","terinao","Bingo-@06","project_nlt");
                             
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <button id="edit-btn" type="button" class="profile-edit-btn" ><i class='fas fa-edit'></i> Edit profile</button>
-                    </div>
+                    
                 </div>
                 <div class="row">
                     <div class="col-md-4">

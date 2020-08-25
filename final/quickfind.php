@@ -3,15 +3,16 @@
 <head>
 	<title></title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 
-
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-        crossorigin="anonymous">     
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
- <link rel="stylesheet" type="text/css" href="quickfind.css">
+<script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
+<link rel="stylesheet" href="/nlt_project/final/fontawesome/css/all.css" >
+ <link rel="stylesheet" type="text/css" href="newprofile.css">
 
  <script type="text/javascript">
   $(document).ready(function(){
@@ -26,39 +27,30 @@
 </head>
 <body>
 <div class="column " >
-  <div class="header">
-    <h1>Welcome to E-Desk</h1>
-    <p>the best place to find worker of different skills</p>
-  </div>
-
-
-            <header class="head-main rowh">
+  
+<div class="rowh">
+            <header class="head-main navication">
               <div class="navbar navbar-dark box-shadow" style="background-color: black;">
                 <div class="navb d-flex align-items-center">
-
                   <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-                  <h4>E-Desk</h4>
-                  
-                </div>
-                       
-                      
-                     
+                  <img src="resource/Edesk.png" class="brand_logo" alt="Logo" style="height: 80px; width: 80px;">
+                              
+                </div>   
               </div>
-              
-              <div class="fixed-top main-menu">
-                <div class="flex-center p-5">
-                  <ul class="nav flex-row">
-                    <li class="nav-item delay-1"><a class="nav-link" href="newhome.php"><i class="fa fa-home"></i> HOME</a></li>
-                    <li class="nav-item delay-2"><a class="nav-link" href="newprofile.php"><i class="fa fa-user-o"></i>PROFILE</a></li>
-                    <li class="nav-item delay-3"><a class="nav-link" href="newnotification.php"><i class="fa fa-bell"></i>NOTIFICATION</a></li>
-                    <li class="nav-item delay-4"><a class="nav-link" href="#"><i class="fa fa-phone"></i>CONTACT US</a></li>
-                  </ul>
+              <div class="main-menu ">
+                
+                <div class="nav ">
+                 
+                    <a href="newhome.php"><i class="fa fa-home" ></i>Home </a>
+                    <a  href="newprofile.php" ><i class="fa fa-user " ></i>Profile</a>
+                    <a href="newnotification.php" ><i class="fa fa-bell" ></i>Notification<span class="fg">new</span></a>
+                    <a onclick="logout();"><i class="fas fa-sign-out-alt"></i>Log out</a>
+            
                 </div>
-
               </div>
             </header>
-        <br>
 </div>
+
 <div class="row" style="margin: 20px;">
 <?php
    
@@ -96,10 +88,12 @@
     
       <img class='card-img-top' src='uploads/profile_img/$profile_img[$i]' alt='profile-image'>
       <div class='card-body' style='background-color: #E4E4E7;''>  
-      <h6 class='card-title'>$name[$i]</h6>
+      <h6 class='card-title font-weight-bold mb-2'>$name[$i]</h6>
       <p1>$skills[$i] 
           $address[$i]</p1><br>
-      <button class='btn btn-primary'>Hire</button>
+      <form enctype='multipart/form-data' action='seeprofile.php' method='POST'>
+        <button type='submit' class='btn btn-primary' name='name' value='$name[$i]'> see profile</button>
+      </form>
       </div>
       </div>
     </div>";

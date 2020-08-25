@@ -11,12 +11,13 @@ if (isset($_POST['name'])) {
 	$skills = $_POST['skills'];
 	$gender= $_POST['gender'];
 	$speciality =$_POST['speciality'];
+	$status = $_POST['status'];
 	$tqry = "select * from useri_nfo where user_name= '$uname'";
 	if($row=$conn->query($tqry))
 	{	$r = mysqli_fetch_array($row);
 		if ( $r['user_name'] == $user_name || mysqli_num_rows($row) == 0) 
 		{
-			$qry = "update useri_nfo set user_name ='$uname',phone_no = '$contact',address = '$address',email = '$email',skills = '$skills',gender ='$gender',speciality = '$speciality' where u_id='$uid' ";
+			$qry = "update useri_nfo set user_name ='$uname',phone_no = '$contact',address = '$address',email = '$email',skills = '$skills',gender ='$gender',speciality = '$speciality',status='$status' where u_id='$uid' ";
 			if($conn->query($qry))
 			{
 				echo"success";

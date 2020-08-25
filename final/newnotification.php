@@ -59,13 +59,7 @@ class noti
                                 {
                                     $r=mysqli_fetch_assoc($result);
                                      $pcid=$r['n_id'];
-                                  
-                                }
-                                else
-                                {
-                                    echo "errrr";
-                                }
-                            $sdp = array(9);
+                                      $sdp = array(9);
                             $sender= array(9);
                             $type=array(9);
                             $comment=array(9);
@@ -115,20 +109,16 @@ class noti
                             {
                               if($type[$counter] == 1)
                               {
-                                echo " <div class='card' style='margin-top: 10px; margin-left: 8px; margin-right:8px;'>
-                                          <div class='card-header'>
-                                            <p>";
-                                              echo"
+                                echo " <div class='card' style='margin-top: 10px; '>
+                                          <div class='card-body' style='background-color: #ffffff; color:#353b48;'>";
+                                            echo"
                                                 <div class='mr-2'>
                                                     <img class='rounded-circle' width='45' src='uploads/profile_img/$sdp[$counter]' alt=''>";
-                                              echo $sender[$counter]; echo "bid on your <a href='#'>Post</a>
+                                              echo "<label class='card-title font-weight-bold mb-2 ' >$sender[$counter]</label>"; echo " bid on your <a href='#'>Post</a>
 
                                                 </div>";
-
-                                              echo"
-                                            </p>
-                                          </div>
-                                          <div class='card-body'>
+                                            echo "
+                                            <hr>
                                            <div class='text-muted h7 mb-2'> <i class='fa fa-clock-o'></i>$rtime[$counter]</div>
                                             <p>
                                               Rate:"; echo $rate[$counter]; echo"
@@ -137,36 +127,41 @@ class noti
                                               "; echo $comment[$counter]; echo"
                                             </p>
                                           </div>
-                                          <div class='card-footer'>
-                                            <button class='btn btn-primary' type='submit'>Hire</button>
-                                            <button class='btn btn-primary'> see profile</button>
+                                          <div class='card-footer' style='background-color: #ffffff;'>
+                                          
+                                            <button class='btn btn-primary' type='button' name='$pid[$counter]' id='$sender[$counter]' onclick='sendnoti2(this.id,this.name)'>Hire</button>
+                                            <form enctype='multipart/form-data' action='seeprofile.php' method='POST'>
+                                            <button type='submit' class='btn btn-primary' name='name' value='$sender[$counter]'> see profile</button>
+                                            </form>
                                           </div>
+                                          
                                         </div>";
                                         $counter++;
                               }
                               elseif ($type[$counter]==2)
                               {
-                                 echo " <div class='card' style='margin-top: 10px;'>
+                                 echo " <div class='card' style='margin-top: 10px;background-color: #ffffff;color:#353b48;'>
                                           <div class='card-header'>
                                           <div class='text-muted h7 mb-2'><i class='fa fa-clock-o'></i>$rtime[$counter]</div>
                                             <p>";
                                               echo"
                                                 <div class='mr-2'>
                                                     <img class='rounded-circle' width='45' src='uploads/profile_img/$sdp[$counter]' alt=''>";
-                                              echo $sender[$counter]; echo" accepted your bid and awarded you oh his <a href='#'>post</a>
+                                              echo $sender[$counter]; echo" accepted your bid and awarded you on his <a href='#'>post</a>
                                                 </div>
                                             </p>
                                           </div>
                                           <div class='card-footer'>
-                                            <button class='btn btn-primary' type='submit'>Hire</button>
-                                            <button class='btn btn-primary'> see profile</button>
+                                            <form enctype='multipart/form-data' action='seeprofile.php' method='POST'>
+                                            <button type='submit' class='btn btn-primary' name='name' value='$sender[$counter]'> see profile</button>
+                                            </form>
                                           </div>
                                         </div>";
                                         $counter++;
                               }
                               else
                               {
-                                 echo " <div class='card' style='margin-top: 10px;'>
+                                 echo " <div class='card' style='margin-top: 10px;background-color:#ffffff; color:#353b48;'>
                                         <div class='card-header'>
                                         <div class='text-muted h7 mb-2'> <i class='fa fa-clock-o'></i>$rtime[$counter]</div>
                                           <p>";
@@ -190,10 +185,17 @@ class noti
                           else
                           {
                           echo "<div class='row justify-content-center align-self-center'>
-                                  <button class='$pcid' type='button' name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;margin-top:10px;'>Showmore<i class='fa fa-caret-down'></i></button>
+                                  <button class='$pcid' type='button' name='$pcid' onclick='showmore(this.name);' style='border-radius: 15px; color: blue;margin-top:10px; background-color:#000000;'>Showmore<i class='fa fa-caret-down'></i></button>
                                 </div>";
                                  
                           }
+                                  
+                                }
+                                else
+                                {
+                                    echo "errrr";
+                                }
+                           
                           echo "
                           <div id='$pcid'>
                           </div>";
@@ -206,19 +208,24 @@ class noti
 <head>
   <title></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-        crossorigin="anonymous">
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
+<link rel="stylesheet" href="/nlt_project/final/fontawesome/css/all.css" >
 
 
 <link rel="stylesheet" type="text/css" href="newprofile.css">
 <script type="text/javascript">
   $(document).ready(function(){
+    $('.hire').click(function(){
+
+    });
     $('.nav-button').click(function(){
       $.ajax({
         url : "checknoti.php",
@@ -267,6 +274,24 @@ class noti
       });
  
      }
+     function sendnoti2(id,pid)
+     {
+      console.log(id,pid);
+      $.ajax({
+           type: "POST",  
+           url:'sendnoti2.php',
+           data:{action:'true',id : id,pid : pid},
+           success:function(html) {
+           console.log(html);
+           alert("Hired");
+            
+           }
+
+
+      });
+ 
+     }
+
 </script>
 </head>
 <body>
@@ -274,40 +299,38 @@ class noti
 
 <!------ Include the above in your HEAD tag ---------->
 <div class="column " >
-<div class="header">
-    <h1>Get worker and Work</h1>
-    <p>specially for hand worker</p>
-  </div>
-  <div class="navication rowh">
-              <header class="head-main ">
-                <div class="navbar navbar-dark box-shadow" style="background-color: black;">
-                  <div class="navb d-flex align-items-center">
-                    <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-                    <h4>E-Desk</h4>             
-                  </div>
 
-
+  <div class="rowh">
+            <header class="head-main navication">
+              <div class="navbar navbar-dark box-shadow" style="background-color: black;">
+                <div class="navb d-flex align-items-center">
+                  <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
+                  <img src="resource/Edesk.png" class="brand_logo" alt="Logo" style="height: 100px; width: 100px;">
+                              
+                </div>   
+              </div>
+              <div class="main-menu align-items-center">
                 
-                  <div>
-                    <a href="login.php">Log out</a>
-                  </div>     
+                <div class="nav ">
+                 
+                    <a href="newhome.php"><i class="fa fa-home" ></i>Home </a>
+                    <a  href="newprofile.php" ><i class="fa fa-user " ></i>Profile</a>
+                    <a href="newnotification.php" ><i class="fa fa-bell" ></i>Notification<span class="fg">new</span></a>
+                    <a onclick="logout();"><i class="fas fa-sign-out-alt"></i>Log out</a>
+            
                 </div>
-                <div class="fixed-top main-menu">
-                  <button type="button" class="nav-button">&times;</button>
-                  <div class="d-flex-center p-5 ">
-                    <ul class="nav flex-row align-text-center">
-                      <li class="nav-item delay-1"><a class="nav-link" href="newhome.php"><i class="fa fa-home"></i>HOME     </a></li>
-                      <li class="nav-item delay-3"><a class="nav-link" href="newnotification.php"><i class="fa fa-bell"></i>NOTIFICATION<span class="fg">new</span></a></li>
-                      <li class="nav-item delay-2"><a class="nav-link" href="newprofile.php"><i class="fa fa-user"></i>PROFILE</a></li>
-                      <li class="nav-item delay-4"><a class="nav-link" href="#"><i class="fa fa-phone"></i>CONTACT US</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </header>
-  </div>
+              </div>
+            </header>
+        </div>
 <div class="row justify-content-center">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body" style="background-color: #353b48; color: blue;">
+              <h5 class="card-title font-weight-bold mb-2">Notifications</h5>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-8">
-      <h5>Notifications</h5>
       <?php
       $fetch = new noti;
       $fetch->shownoti();

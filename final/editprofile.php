@@ -21,6 +21,7 @@ session_start();
 			$skills = $r['skills'];
 			$email = $r['email'];
 			$speciality = $r['speciality'];
+			$status = $r['status'];
 
 		}
 		else
@@ -41,12 +42,17 @@ session_start();
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="editpr.css">
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-        crossorigin="anonymous">     
+<script type="text/javascript" src="node_modules/mdbootstrap/js/popper.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="node_modules/mdbootstrap/js/mdb.min.js"></script>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/mdb.min.css">
+<link rel="stylesheet" href="node_modules/mdbootstrap/css/style.css">
+<link rel="stylesheet" href="/nlt_project/final/fontawesome/css/all.css" >
+
+
+<link rel="stylesheet" type="text/css" href="newprofile.css">  
 <script type="text/javascript">
 	
 	
@@ -100,6 +106,18 @@ session_start();
 
 		}
 	}
+	function changevaluestatus()
+	{	var myform = document.getElementById('myform');
+		if (myform.status.value == 'Available')
+		{
+			myform.status.value = 'Busy'; 
+		}
+		else
+		{
+			myform.status.value = 'Available'; 
+
+		}
+	}
 </script>
 <script type="text/javascript">
   $(document).ready(function(){
@@ -136,35 +154,26 @@ session_start();
 <link rel="stylesheet" type="text/css" href="editprofile.css">
 </head>
 <body>
-<div class="header">
-    <h1>Welcome to E-Desk</h1>
-    <p>the best place to find worker of different skills</p>
-  </div>
 
 
-            <div class="navication rowh">
-            <header class="head-main ">
+        <div class="rowh">
+            <header class="head-main navication">
               <div class="navbar navbar-dark box-shadow" style="background-color: black;">
                 <div class="navb d-flex align-items-center">
                   <a class="nav-button"><span id="nav-icon3"><span></span><span></span><span></span><span></span></span></a> 
-                  <h4>E-Desk</h4>             
-                </div>
-
-
-              
-                <div>
-                  <a href="login.php">Log out</a>
-                </div>     
+                  <img src="resource/Edesk.png" class="brand_logo" alt="Logo" style="height: 80px; width: 80px;">
+                              
+                </div>   
               </div>
-              <div class="fixed-top main-menu">
-                <button type="button" class="nav-button">&times;</button>
-                <div class="d-flex-center p-5 ">
-                  <ul class="nav flex-row align-text-center">
-                    <li class="nav-item delay-1"><a class="nav-link" href="newhome.php"><i class="fa fa-home"></i>HOME     </a></li>
-                    <li class="nav-item delay-3"><a class="nav-link" href="newnotification.php"><i class="fa fa-bell"></i>NOTIFICATION<span class="fg">new</span></a></li>
-                    <li class="nav-item delay-2"><a class="nav-link" href="newprofile.php"><i class="fa fa-user"></i>PROFILE</a></li>
-                    <li class="nav-item delay-4"><a class="nav-link" href="#"><i class="fa fa-phone"></i>CONTACT US</a></li>
-                  </ul>
+              <div class="main-menu ">
+                
+                <div class="nav ">
+                 
+                    <a href="newhome.php"><i class="fa fa-home" ></i>Home </a>
+                    <a  href="newprofile.php" ><i class="fa fa-user " ></i>Profile</a>
+                    <a href="newnotification.php" ><i class="fa fa-bell" ></i>Notification<span class="fg">new</span></a>
+                    <a onclick="logout();"><i class="fas fa-sign-out-alt"></i>Log out</a>
+            
                 </div>
               </div>
             </header>
@@ -193,7 +202,11 @@ session_start();
 			 		</div>
 			 		<div>
 			 			<label>Gender</label><br/>
-			 			<input class="" type="text" name="gender" value="<?php echo $gender; ?> " readonly><button class="btn btn-outline-dark" type="button" onclick="changevalue();"><i class="fa fa-refresh fa-spin fa-1x"></i></button>
+			 			<input class="" type="text" name="gender" value="<?php echo $gender; ?> " readonly><button class="btn btn-outline-dark" type="button" onclick="changevalue();"><i class="fas fa-redo fa-spin fa-1x"></i></button>
+			 		</div>
+			 		<div>
+			 			<label>Status</label><br/>
+			 			<input class="" type="text" name="status" value="<?php echo $status; ?> " readonly><button class="btn btn-outline-dark" type="button" onclick="changevaluestatus();"><i class="fas fa-redo fa-spin fa-1x"></i></button>
 			 		</div>
 			 		<div>
 			 			<label>Skills</label><br/>
